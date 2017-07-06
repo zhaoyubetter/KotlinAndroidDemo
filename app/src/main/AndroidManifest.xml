@@ -17,6 +17,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.PrivacyLockViewUse1Activity" />
+        <activity android:name=".ui.DialogUseActivity"></activity>
     </application>
 
 </manifest>
