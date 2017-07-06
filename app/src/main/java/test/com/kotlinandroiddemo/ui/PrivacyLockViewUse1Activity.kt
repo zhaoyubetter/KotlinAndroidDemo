@@ -5,10 +5,7 @@ import android.os.Bundle
 import android.widget.SeekBar
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_privacy_lock_view_use1.*
-import org.jetbrains.anko.sdk25.coroutines.onClick
-import org.jetbrains.anko.sdk25.coroutines.onSeekBarChangeListener
-import test.com.kotlinandroiddemo.PrivacyLockView
-import test.com.kotlinandroiddemo.PrivacyLockView.OnTextSubmitListener
+import test.com.kotlinandroiddemo.widget.PrivacyLockView.OnTextSubmitListener
 //import org.jetbrains.anko.*
 
 import test.com.kotlinandroiddemo.R

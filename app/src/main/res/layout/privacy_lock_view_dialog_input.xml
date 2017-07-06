@@ -31,7 +31,7 @@
         android:textColor="#5c5c5c"
         android:textSize="13sp" />
 
-    <test.com.kotlinandroiddemo.PrivacyLockView
+    <test.com.kotlinandroiddemo.widget.PrivacyLockView
         android:id="@+id/lock_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

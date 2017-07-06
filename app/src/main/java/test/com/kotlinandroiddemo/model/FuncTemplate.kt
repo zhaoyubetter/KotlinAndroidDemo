@@ -3,6 +3,7 @@ package test.com.kotlinandroiddemo.model
 import android.app.Activity
 import test.com.kotlinandroiddemo.ui.DialogUseActivity
 import test.com.kotlinandroiddemo.ui.PrivacyLockViewUse1Activity
+import test.com.kotlinandroiddemo.ui.RecyclerTestActivity
 
 /**
  * Created by zhaoyu1 on 2017/7/4.
@@ -46,6 +47,12 @@ class FuncTemplate {
                         desc = "嵌入到Dialog中，类似于支付宝、微信输入密码"
                         clazz = DialogUseActivity::class.java
                     }
+                }
+
+                item {
+                    title = "Kotlin RecyclerView"
+                    desc = "Kotlin RecyclerView"
+                    clazz = RecyclerTestActivity::class.java
                 }
             }
         }

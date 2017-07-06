@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="test.com.kotlinandroiddemo">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -17,7 +19,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.PrivacyLockViewUse1Activity" />
-        <activity android:name=".ui.DialogUseActivity"></activity>
+        <activity android:name=".ui.DialogUseActivity" />
+        <activity android:name=".ui.RecyclerTestActivity"></activity>
     </application>
 
 </manifest>

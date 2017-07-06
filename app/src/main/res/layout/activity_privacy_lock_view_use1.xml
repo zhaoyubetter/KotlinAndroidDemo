@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:text="基本使用" />
 
-    <test.com.kotlinandroiddemo.PrivacyLockView
+    <test.com.kotlinandroiddemo.widget.PrivacyLockView
         android:id="@+id/privacyView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

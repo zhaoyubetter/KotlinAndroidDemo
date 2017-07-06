@@ -1,4 +1,4 @@
-package test.com.kotlinandroiddemo
+package test.com.kotlinandroiddemo.widget
 
 import android.content.Context
 import android.graphics.*
@@ -9,6 +9,7 @@ import android.widget.EditText
 import android.text.InputFilter
 import android.view.inputmethod.InputMethodManager
 import android.text.TextUtils
+import test.com.kotlinandroiddemo.R
 
 
 /**

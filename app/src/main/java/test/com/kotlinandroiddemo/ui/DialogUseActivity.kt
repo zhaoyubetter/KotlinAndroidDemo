@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 
 import test.com.kotlinandroiddemo.R
-import test.com.kotlinandroiddemo.PrivacyLockView
+import test.com.kotlinandroiddemo.widget.PrivacyLockView
 import android.view.*
 import android.widget.Toast
 
