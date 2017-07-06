@@ -6,7 +6,6 @@ import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.view.View
 import android.widget.EditText
-import org.jetbrains.anko.dip
 import android.text.InputFilter
 import android.view.inputmethod.InputMethodManager
 import android.text.TextUtils
@@ -19,15 +18,18 @@ import android.text.TextUtils
  */
 class PrivacyLockView(context: Context, attrs: AttributeSet?, defAttrStyle: Int) : EditText(context, attrs, defAttrStyle) {
 
+    private val DEBUG: Boolean = false
+
     // 次要构造函数
     constructor(context: Context) : this(context, null)
 
-    constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
+    // 使用系统样式
+    constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, android.R.attr.editTextStyle)
 
-    var submitListener: OnTextSubmitListener? = null
-        set(value) {
-            field = value
-        }
+    /**
+     * 监听
+     */
+    var listener: OnTextSubmitListener? = null
 
     /**
      * 个数
@@ -42,11 +44,19 @@ class PrivacyLockView(context: Context, attrs: AttributeSet?, defAttrStyle: Int)
                 this.filters = FilterArray
             }
         }
+
+    /**
+     * 加密时，绘制的Drawable
+     */
     var mPrivacyDrawable: Drawable? = null
         set(value) {
             field = value
             invalidate()
         }
+
+    /**
+     * 加密时，drawable's size
+     */
     var mPrivacyDrawableSize: Int = 0
         set(value) {
             field = value
@@ -69,6 +79,10 @@ class PrivacyLockView(context: Context, attrs: AttributeSet?, defAttrStyle: Int)
                 invalidate()
             }
         }
+
+    /**
+     * 条目间 间隙
+     */
     var mItemPadding: Int = 0
         set(value) {
             field = value
@@ -78,13 +92,15 @@ class PrivacyLockView(context: Context, attrs: AttributeSet?, defAttrStyle: Int)
     /**
      * 是否加密
      */
-    private var mEncrypt: Boolean = false
+    var mEncrypt: Boolean = false
         set(value) {
             field = value
             invalidate()
         }
 
     private var mPaint: Paint
+
+    private var mRect: Rect? = null
 
     init {
         // 加载样式
@@ -117,6 +133,9 @@ class PrivacyLockView(context: Context, attrs: AttributeSet?, defAttrStyle: Int)
         mPaint = Paint(Paint.ANTI_ALIAS_FLAG)
     }
 
+    /**
+     * 清空方法
+     */
     fun clearText() {
         setText("")
         invalidate()
@@ -143,47 +162,42 @@ class PrivacyLockView(context: Context, attrs: AttributeSet?, defAttrStyle: Int)
         }
         if (text?.length == mItemCount) {
             hideSortInput()
-            submitListener?.onSubmit(text)
+            listener?.onSubmit(text)
         }
     }
 
     override fun onDraw(canvas: Canvas?) {
-        super.onDraw(canvas)
         drawRectItem(canvas)
         drawUserInput(canvas)
     }
 
     /**
-     * 方形item
+     * 画方形格子 item
      */
     private fun drawRectItem(canvas: Canvas?) {
         val width = width
         val height = height
-        val offsetLeft = (width - mItemPadding * (mItemCount - 1) - mItemSize * mItemCount) / 2
 
+        // 默认居中
+        val offsetLeft = (width - mItemPadding * (mItemCount) - mItemSize * mItemCount) / 2
 
-        // 外边框
-        mPaint?.color = mBorderColor
-        mPaint?.style = Paint.Style.STROKE
-        mPaint?.strokeWidth = 0f
+        // 外边框圆角矩形
+        mPaint.color = mBorderColor
+        mPaint.style = Paint.Style.STROKE
+        mPaint.strokeWidth = 0f
         val rect = RectF(offsetLeft.toFloat(), paddingTop.toFloat(), (getWidth() - offsetLeft).toFloat(), (height - paddingBottom).toFloat())
         canvas?.drawRoundRect(rect, 2f, 2f, mPaint)
 
-        (0..mItemCount - 1 - 1)
-                .map { offsetLeft + (it + 1) * mItemSize + it * mItemPadding.toFloat() }
-                .forEach { canvas?.drawLine(it, rect.top, it, rect.bottom, mPaint) }
+        // 画竖线分隔
+        if (DEBUG) {
+            mPaint.color = Color.BLUE
+        }
 
-        /*
-        for (i in 0..mItemCount - 1 - 1) {
-            val startX = offsetLeft + (i + 1) * mItemSize + i * mItemPadding as Float
-            canvas?.drawLine(startX, rect.top, startX, rect.bottom, mPaint)
-        }*/
+        (1..mItemCount - 1).map { offsetLeft + it * mItemSize + it * mItemPadding.toFloat() }
+                .forEach { canvas?.drawLine(it, rect.top, it, rect.bottom, mPaint) }
     }
 
-    var mRect: Rect? = null
-
     private fun drawUserInput(canvas: Canvas?) {
-
         val text = text.toString()
         if (TextUtils.isEmpty(text)) {
             return
@@ -194,7 +208,6 @@ class PrivacyLockView(context: Context, attrs: AttributeSet?, defAttrStyle: Int)
         mPaint.style = Paint.Style.FILL
         mPaint.textAlign = Paint.Align.CENTER        // 加入居中处理，指定位置居中处理
         var offsetLeft: Int = (width - mItemPadding * (mItemCount - 1) - mItemSize * mItemCount) / 2 + mItemSize / 2
-
 
         if (mRect == null) {
             mRect = Rect()
@@ -289,4 +302,8 @@ class PrivacyLockView(context: Context, attrs: AttributeSet?, defAttrStyle: Int)
         this.mItemCount = count
         invalidate()
     }*/
+
+    fun setOnTextSubmitListener(listener: OnTextSubmitListener?) {
+        this.listener = listener
+    }
 }

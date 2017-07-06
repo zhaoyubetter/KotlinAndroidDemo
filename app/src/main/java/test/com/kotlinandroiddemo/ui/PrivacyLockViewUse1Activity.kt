@@ -2,7 +2,14 @@ package test.com.kotlinandroiddemo.ui
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import kotlinx.android.synthetic.main.activity_main.*
+import android.widget.SeekBar
+import android.widget.Toast
+import kotlinx.android.synthetic.main.activity_privacy_lock_view_use1.*
+import org.jetbrains.anko.sdk25.coroutines.onClick
+import org.jetbrains.anko.sdk25.coroutines.onSeekBarChangeListener
+import test.com.kotlinandroiddemo.PrivacyLockView
+import test.com.kotlinandroiddemo.PrivacyLockView.OnTextSubmitListener
+//import org.jetbrains.anko.*
 
 import test.com.kotlinandroiddemo.R
 
@@ -19,5 +26,31 @@ class PrivacyLockViewUse1Activity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         toolbar.setNavigationOnClickListener { finish() }
 
+        // 事件监听
+        privacyView.setOnTextSubmitListener(object : OnTextSubmitListener {
+            override fun onSubmit(editable: CharSequence) {
+                Toast.makeText(applicationContext, "输入完毕：" + editable.toString(), Toast.LENGTH_SHORT).show()
+            }
+        })
+
+        chk.setOnCheckedChangeListener { _, isChecked ->
+            privacyView.mEncrypt = isChecked
+        }
+
+        seekbar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onStartTrackingTouch(seekBar: SeekBar?) = Unit
+            override fun onStopTrackingTouch(seekBar: SeekBar?) = Unit
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                privacyView.mItemCount = progress
+            }
+        })
+
+        seekbar2.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onStartTrackingTouch(seekBar: SeekBar?) = Unit
+            override fun onStopTrackingTouch(seekBar: SeekBar?) = Unit
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                privacyView.mItemPadding = progress
+            }
+        })
     }
 }
