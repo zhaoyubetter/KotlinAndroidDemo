@@ -1,8 +1,8 @@
 package test.com.kotlinandroiddemo.model
 
 import android.app.Activity
-import test.com.kotlinandroiddemo.ui.DialogUseActivity
-import test.com.kotlinandroiddemo.ui.PrivacyLockViewUse1Activity
+import test.com.kotlinandroiddemo.ui.PrivacyLockViewDialogUseActivity
+import test.com.kotlinandroiddemo.ui.PrivacyLockViewNormalUseActivity
 import test.com.kotlinandroiddemo.ui.RecyclerTestActivity
 
 /**
@@ -38,14 +38,14 @@ class FuncTemplate {
                         pid = 1
                         title = "基本使用示例"
                         desc = "仿微信密码、验证码输入控件"
-                        clazz = PrivacyLockViewUse1Activity::class.java
+                        clazz = PrivacyLockViewNormalUseActivity::class.java
                     }
 
                     item {
                         pid = 1
                         title = "嵌入到Dialog中"
                         desc = "嵌入到Dialog中，类似于支付宝、微信输入密码"
-                        clazz = DialogUseActivity::class.java
+                        clazz = PrivacyLockViewDialogUseActivity::class.java
                     }
                 }
 

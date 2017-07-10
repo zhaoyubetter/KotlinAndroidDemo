@@ -1,9 +1,10 @@
 package test.com.kotlinandroiddemo.ui
 
+import android.app.ProgressDialog
 import android.content.Context
-import android.graphics.Color
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.os.SystemClock
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
@@ -12,18 +13,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.activity_privacy_lock_view_use1.*
+import lib.basenet.okhttp.OkHttpRequest
+import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.find
-import org.jetbrains.anko.sdk25.coroutines.onClick
-import org.jetbrains.anko.textColor
 import org.jetbrains.anko.toast
-import org.w3c.dom.Text
-
+import org.jetbrains.anko.uiThread
 import test.com.kotlinandroiddemo.R
 
 class RecyclerTestActivity : AppCompatActivity() {
 
     private val items = listOf("星期一", "星期二", "星期三", "星期四", "星期五", "星期六")
+    private var progressDiaolg: ProgressDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,10 +37,26 @@ class RecyclerTestActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         toolbar.setNavigationOnClickListener { finish() }
 
+        progressDiaolg = ProgressDialog(this)
+        progressDiaolg?.setMessage("加载中...")
+
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = Adapter(items, object : OnItemClickListener {
             override fun invoke(item: String) {
-                toast(item)
+                progressDiaolg?.show()
+
+                doAsync {
+                    SystemClock.sleep(2000)
+                    val response = OkHttpRequest.Builder().url("http://www.baidu.com").build().requestSync()
+                    uiThread {
+                        progressDiaolg?.hide()
+                        if (response != null) {
+                            toast("" + response?.responseBody)
+                        } else {
+                            toast("请求失败")
+                        }
+                    }
+                }
             }
         })
     }
@@ -69,5 +85,4 @@ class RecyclerTestActivity : AppCompatActivity() {
     interface OnItemClickListener {
         operator fun invoke(item: String)
     }
-
 }

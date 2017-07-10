@@ -11,7 +11,7 @@ import android.view.*
 import android.widget.Toast
 
 
-class DialogUseActivity : AppCompatActivity() {
+class PrivacyLockViewDialogUseActivity : AppCompatActivity() {
 
     var dialog: Dialog? = null
 

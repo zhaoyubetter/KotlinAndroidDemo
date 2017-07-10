@@ -10,7 +10,7 @@ import test.com.kotlinandroiddemo.widget.PrivacyLockView.OnTextSubmitListener
 
 import test.com.kotlinandroiddemo.R
 
-class PrivacyLockViewUse1Activity : AppCompatActivity() {
+class PrivacyLockViewNormalUseActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
