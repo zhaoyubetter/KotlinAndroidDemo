@@ -127,6 +127,8 @@ class PrivacyLockView(context: Context, attrs: AttributeSet?, defAttrStyle: Int)
             mItemSize = getDimension(R.styleable.PrivacyLockView_pv_item_size, 28f).toInt()
             mItemPadding = getDimension(R.styleable.PrivacyLockView_pv_itemPadding, 0F).toInt()
             mEncrypt = getBoolean(R.styleable.PrivacyLockView_pv_is_privacy, false)
+
+            recycle()
         }
 
         isCursorVisible = false
