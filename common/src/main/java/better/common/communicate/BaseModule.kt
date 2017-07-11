@@ -6,7 +6,7 @@ import better.common.communicate.router.IRouterCommunication
  * 模块抽象基类
  * Created by zhaoyu1 on 2017/7/10.
  */
-abstract class BaseModule(val router: IRouterCommunication) {
+abstract class BaseModule(protected val router: IRouterCommunication) {
 
     /**
      * 模块初始化方法

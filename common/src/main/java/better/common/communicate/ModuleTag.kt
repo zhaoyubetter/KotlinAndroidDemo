@@ -7,5 +7,6 @@ package better.common
 class ModuleTag {
     companion object {
         val ALBUM_SERVICE = "album_service"
+        val HOME_SERVICE = "home_service"
     }
 }
