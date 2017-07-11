@@ -15,18 +15,8 @@
         android:elevation="4dp"
         android:theme="@style/AppTheme.AppBarOverlay"></android.support.v7.widget.Toolbar>
 
-    <FrameLayout
-        android:id="@+id/content"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"></FrameLayout>
-
-    <android.support.design.widget.BottomNavigationView
-        android:id="@+id/navigation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#eeeeee"
-        app:itemIconTint="#999999"
-        app:itemTextColor="#666666"
-        app:menu="@menu/bottom_navigation_menu" />
+        android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
 </LinearLayout>

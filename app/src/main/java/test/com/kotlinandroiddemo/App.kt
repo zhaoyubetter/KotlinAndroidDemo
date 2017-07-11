@@ -9,7 +9,7 @@ import test.com.kotlinandroiddemo.router.RouterCommunication
 class App : Application() {
     companion object {
         private var instance: Application? = null
-        fun instance() = instance!!     // 返回非空的 Application
+        fun instance() = instance     // 返回非空的 Application
     }
 
     override fun onCreate() {

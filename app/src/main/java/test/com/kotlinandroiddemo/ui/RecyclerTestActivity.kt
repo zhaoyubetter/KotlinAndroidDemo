@@ -12,7 +12,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_recycler_test.*
 import lib.basenet.okhttp.OkHttpRequest
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.find

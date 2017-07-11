@@ -12,7 +12,7 @@ import android.view.Gravity
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_kotlin_main.*
 import org.jetbrains.anko.*
 import org.jetbrains.anko.sdk25.coroutines.onClick
 import test.com.kotlinandroiddemo.model.FuncTemplate
@@ -22,7 +22,7 @@ class MainKotlinActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_kotlin_main)
 
         val id = intent.getIntExtra("id", 0)
         val title = intent.getStringExtra("title")
