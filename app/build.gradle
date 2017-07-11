@@ -34,11 +34,12 @@ dependencies {
     compile "com.android.support:appcompat-v7:$android_support_version"
     compile "com.android.support:design:$android_support_version"
     compile "com.android.support:recyclerview-v7:$android_support_version"
-
-
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    testCompile 'junit:junit:4.12'
 
+    testCompile 'junit:junit:4.12'
     compile project(':common')
     compile project(':home')
+    compile project(':widget')
+    compile project(':me')
+    compile project(':settings')
 }
