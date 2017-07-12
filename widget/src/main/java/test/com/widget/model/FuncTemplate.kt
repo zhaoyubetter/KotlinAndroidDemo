@@ -1,9 +1,8 @@
-package test.com.kotlinandroiddemo.model
+package test.com.widget.model
 
 import android.app.Activity
-import test.com.kotlinandroiddemo.ui.PrivacyLockViewDialogUseActivity
-import test.com.kotlinandroiddemo.ui.PrivacyLockViewNormalUseActivity
-import test.com.kotlinandroiddemo.ui.RecyclerTestActivity
+import test.com.widget.ui.PrivacyLockViewDialogUseActivity
+import test.com.widget.ui.PrivacyLockViewNormalUseActivity
 
 /**
  * Created by zhaoyu1 on 2017/7/4.
@@ -47,12 +46,6 @@ class FuncTemplate {
                         desc = "嵌入到Dialog中，类似于支付宝、微信输入密码"
                         clazz = PrivacyLockViewDialogUseActivity::class.java
                     }
-                }
-
-                item {
-                    title = "Kotlin RecyclerView"
-                    desc = "Kotlin RecyclerView"
-                    clazz = RecyclerTestActivity::class.java
                 }
             }
         }

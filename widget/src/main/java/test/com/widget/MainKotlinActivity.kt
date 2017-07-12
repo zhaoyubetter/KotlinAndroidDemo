@@ -1,4 +1,4 @@
-package test.com.kotlinandroiddemo
+package test.com.widget
 
 import android.app.Activity
 import android.content.Intent
@@ -12,17 +12,17 @@ import android.view.Gravity
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
-import kotlinx.android.synthetic.main.activity_kotlin_main.*
+import kotlinx.android.synthetic.main.widget_activity_kotlin_main.*
 import org.jetbrains.anko.*
 import org.jetbrains.anko.sdk25.coroutines.onClick
-import test.com.kotlinandroiddemo.model.FuncTemplate
-import test.com.kotlinandroiddemo.model.SampleItem
+import test.com.widget.model.FuncTemplate
+import test.com.widget.model.SampleItem
 
 class MainKotlinActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_kotlin_main)
+        setContentView(R.layout.widget_activity_kotlin_main)
 
         val id = intent.getIntExtra("id", 0)
         val title = intent.getStringExtra("title")
@@ -51,7 +51,6 @@ class MainKotlinActivity : AppCompatActivity() {
                     lparams(width = matchParent, height = wrapContent)
                     leftPadding = dip(16)
                     rightPadding = dip(16)
-                    backgroundResource = R.drawable.white_item_selector
 
                     textView {
                         id = android.R.id.text1

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="WidgetAttribute">
+        <attr name="privacyLockView" format="reference" />
+    </declare-styleable>
+
+    <!-- 验证输入框 -->
+    <declare-styleable name="PrivacyLockView">
+        <attr name="pv_itemPadding" format="dimension" />
+        <attr name="pv_itemCount" format="integer" />
+        <attr name="pv_isPrivacy" format="boolean" />      <!-- 是否加密 -->
+        <attr name="pv_privacyDrawable" format="reference" />
+        <attr name="pv_privacyDrawableWidth" format="dimension" />
+        <attr name="pv_privacyDrawableHeight" format="dimension" />
+        <attr name="pv_borderColor" format="color" />   <!-- 边框颜色 -->
+        <attr name="pv_borderStrokeWidth" format="dimension" />   <!-- 边框线宽 -->
+    </declare-styleable>
+</resources>

@@ -1,5 +1,6 @@
 package better.common.communicate
 
+import better.common.CommunicationTag
 import better.common.communicate.router.IRouterCommunication
 import java.lang.RuntimeException
 
@@ -23,12 +24,11 @@ class CommonModule private constructor(val r: IRouterCommunication) : BaseModule
             if (instance == null) {
                 throw RuntimeException("You must first call getIns(IRouterCommunication)")
             }
-
             return instance!!
         }
     }
 
-    override fun getTag(): String = "common_module"
+    override fun getTag(): String = CommunicationTag.COMMON_SERVICE
 
     override fun getCommunication(): Any? = null
 

@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">widget</string>
+    <string name="widget_user_input">输入内容：</string>
+    <string name="widget_normal_use">基本使用</string>
+    <string name="widget_show_encry">显示密文</string>
+    <string name="widget_count">个数</string>
+    <string name="widget_space">间隔</string>
+    <string name="widget_input_correct">输入正确</string>
+    <string name="widget_input_code">输入验证码</string>
+    <string name="widget_privacy_message">请输入验证码，用以确定身份</string>
+    <string name="widget_password_correct">密码正确</string>
+    <string name="widget_password_error">密码输入错误，密码为: %s</string>
 </resources>

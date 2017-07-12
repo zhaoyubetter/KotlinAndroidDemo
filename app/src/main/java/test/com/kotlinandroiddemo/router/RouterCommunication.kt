@@ -7,6 +7,7 @@ import better.common.communicate.CommonModule
 import better.common.communicate.router.IRouterCommunication
 import com.better.module.home.communication.HomeModule
 import test.com.kotlinandroiddemo.BuildConfig
+import test.com.widget.communication.WidgetModule
 
 /**
  * 组件通信
@@ -16,9 +17,13 @@ class RouterCommunication private constructor() : IRouterCommunication {
 
     companion object {
         /**
-         * module 与 其访问接口服务
+         * 接口服务
+         * (communicationTag与其对应的服务)
          */
         private val communications = hashMapOf<String, Any?>()
+        /**
+         * module map (module名称，对应的module)
+         */
         private val modules = hashMapOf<String, BaseModule>()
         private lateinit var ctx: Application
 
@@ -40,6 +45,7 @@ class RouterCommunication private constructor() : IRouterCommunication {
         @JvmStatic fun initModules(thiz: IRouterCommunication) {
             modules.put(CommonModule.getIns(thiz).getTag(), CommonModule.getIns(thiz))      // 公共的module
             modules.put(HomeModule.getInstance(thiz).getTag(), HomeModule.getInstance(thiz))
+            modules.put(WidgetModule.getInstance(thiz).getTag(), WidgetModule.getInstance(thiz))
         }
 
         @JvmStatic fun getRouter(): IRouterCommunication = communications["ROUTER"] as IRouterCommunication
@@ -59,7 +65,7 @@ class RouterCommunication private constructor() : IRouterCommunication {
     override fun getService(tag: String): Any? {
         if (!communications.containsKey(tag)) {
             val module = modules[tag]
-            module?.init()
+            module?.init()      // module 的初始化操作,直接调用 registerService()
             module?.onInit()
         }
         return communications[tag]

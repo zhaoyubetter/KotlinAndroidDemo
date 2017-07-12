@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 默认样式 -->
+    <style name="PrivacyLockView">
+        <item name="pv_borderColor">@android:color/darker_gray</item>
+        <item name="pv_borderStrokeWidth">1dp</item>
+        <item name="pv_itemPadding">12dp</item>
+        <item name="pv_itemCount">6</item>
+        <item name="pv_privacyDrawableWidth">20dp</item>
+        <item name="pv_privacyDrawableHeight">20dp</item>
+    </style>
+</resources>

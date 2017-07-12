@@ -4,10 +4,10 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentTransaction
-import kotlinx.android.synthetic.main.activity_main.*
-import better.common.ModuleTag
+import better.common.CommunicationTag
 import better.common.communicate.home.IHomeCommunication
 import better.common.utils.getService
+import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -95,7 +95,7 @@ class MainActivity : AppCompatActivity() {
         funTabs.clear()
 
         // 组装内容
-        val homeComm = getService<IHomeCommunication>(ModuleTag.HOME_SERVICE)       // 首页
+        val homeComm = getService<IHomeCommunication>(CommunicationTag.HOME_SERVICE)       // 首页
         funTabs.put(FRAGMENT_HOME, homeComm.getMainFragmentName(this))
         funTabs.put(FRAGMENT_WIDGET, homeComm.getMainFragmentName(this))
         funTabs.put(FRAGMENT_ME, homeComm.getMainFragmentName(this))

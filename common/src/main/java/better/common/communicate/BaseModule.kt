@@ -16,12 +16,12 @@ abstract class BaseModule(protected val router: IRouterCommunication) {
     }
 
     /**
-     * 模块对应的tag
+     *  @see better.common.CommunicationTag
      */
     abstract fun getTag(): String
 
     /**
-     * 模块对应的Communication
+     * 对应的Communication
      */
     abstract fun getCommunication(): Any?
 
@@ -31,7 +31,7 @@ abstract class BaseModule(protected val router: IRouterCommunication) {
     abstract fun onInit()
 
     /**
-     * 获取模块对应的服务
+     * 获取接口服务
      */
     fun getService(tag: String): Any? = router?.getService(tag)
 

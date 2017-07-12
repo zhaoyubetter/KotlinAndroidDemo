@@ -1,4 +1,4 @@
-package test.com.kotlinandroiddemo.model
+package test.com.widget.model
 
 /**
  * Created by zhaoyu1 on 2017/7/4.

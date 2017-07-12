@@ -1,6 +1,6 @@
 package com.better.module.home.communication
 
-import better.common.ModuleTag
+import better.common.CommunicationTag
 import better.common.communicate.BaseModule
 import better.common.communicate.router.IRouterCommunication
 
@@ -20,7 +20,7 @@ class HomeModule private constructor(val r: IRouterCommunication) : BaseModule(r
         }
     }
 
-    override fun getTag(): String = ModuleTag.HOME_SERVICE
+    override fun getTag(): String = CommunicationTag.HOME_SERVICE
 
     override fun getCommunication(): Any? = HomeCommunication()
 
