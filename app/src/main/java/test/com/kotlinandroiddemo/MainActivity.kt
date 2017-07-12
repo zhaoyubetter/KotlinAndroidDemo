@@ -6,6 +6,8 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentTransaction
 import better.common.CommunicationTag
 import better.common.communicate.home.IHomeCommunication
+import better.common.communicate.me.IMeCommunication
+import better.common.communicate.settings.ISettingsCommunication
 import better.common.communicate.widget.IWidgetCommunication
 import better.common.utils.getService
 import kotlinx.android.synthetic.main.activity_main.*
@@ -100,11 +102,13 @@ class MainActivity : AppCompatActivity() {
         // 组装内容
         val homeComm = getService<IHomeCommunication>(CommunicationTag.HOME_SERVICE)       // 首页
         val widgetComm = getService<IWidgetCommunication>(CommunicationTag.WIDGET_SERVICE)
+        val meComm = getService<IMeCommunication>(CommunicationTag.ME_SERVICE)
+        val settingsComm = getService<ISettingsCommunication>(CommunicationTag.SETTINGS_SERVICE)
 
         funTabs.put(FRAGMENT_HOME, homeComm.getMainFragmentName(this))
         funTabs.put(FRAGMENT_WIDGET, widgetComm.getMainFragmentName(this))
-        funTabs.put(FRAGMENT_ME, homeComm.getMainFragmentName(this))
-        funTabs.put(FRAGMENT_SETTING, homeComm.getMainFragmentName(this))
+        funTabs.put(FRAGMENT_ME, meComm.getMainFragmentName(this))
+        funTabs.put(FRAGMENT_SETTING, settingsComm.getMainFragmentName(this))
 
         navigation.selectedItemId = R.id.home
     }

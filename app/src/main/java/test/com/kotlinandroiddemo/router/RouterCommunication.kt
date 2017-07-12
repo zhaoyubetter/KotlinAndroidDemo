@@ -7,6 +7,8 @@ import better.common.communicate.CommonModule
 import better.common.communicate.router.IRouterCommunication
 import com.better.module.home.communication.HomeModule
 import test.com.kotlinandroiddemo.BuildConfig
+import test.com.me.communication.MEModule
+import test.com.settings.communication.SettingsModule
 import test.com.widget.communication.WidgetModule
 
 /**
@@ -46,6 +48,8 @@ class RouterCommunication private constructor() : IRouterCommunication {
             modules.put(CommonModule.getIns(thiz).getTag(), CommonModule.getIns(thiz))      // 公共的module
             modules.put(HomeModule.getInstance(thiz).getTag(), HomeModule.getInstance(thiz))
             modules.put(WidgetModule.getInstance(thiz).getTag(), WidgetModule.getInstance(thiz))
+            modules.put(MEModule.getInstance(thiz).getTag(), MEModule.getInstance(thiz))
+            modules.put(SettingsModule.getInstance(thiz).getTag(), SettingsModule.getInstance(thiz))
         }
 
         @JvmStatic fun getRouter(): IRouterCommunication = communications["ROUTER"] as IRouterCommunication
