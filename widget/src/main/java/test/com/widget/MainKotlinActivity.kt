@@ -18,6 +18,9 @@ import org.jetbrains.anko.sdk25.coroutines.onClick
 import test.com.widget.model.FuncTemplate
 import test.com.widget.model.SampleItem
 
+/**
+ * 以apk形式编译时，启动起activity
+ */
 class MainKotlinActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,7 +43,7 @@ class MainKotlinActivity : AppCompatActivity() {
         items?.let { recyclerView.adapter = Adapter(it) }
     }
 
-    class Adapter(val items: List<SampleItem<Activity>>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    inner class Adapter(val items: List<SampleItem<Activity>>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         override fun getItemCount(): Int = items.size
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {

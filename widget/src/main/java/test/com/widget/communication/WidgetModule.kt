@@ -19,7 +19,7 @@ class WidgetModule private constructor(val r: IRouterCommunication) : BaseModule
         }
     }
 
-    override fun getTag(): String = CommunicationTag.HOME_SERVICE
+    override fun getTag(): String = CommunicationTag.WIDGET_SERVICE
 
     override fun getCommunication(): Any? = WidgetCommunication()
 

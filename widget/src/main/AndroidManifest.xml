@@ -1,5 +1,4 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-
     package="test.com.widget">
 
     <application
@@ -9,6 +8,7 @@
 
         <activity android:name=".ui.PrivacyLockViewDialogUseActivity" />
         <activity android:name=".ui.PrivacyLockViewNormalUseActivity" />
+        <activity android:name=".MainKotlinActivity" />
 
     </application>
 

@@ -10,4 +10,8 @@
     <string name="widget_privacy_message">请输入验证码，用以确定身份</string>
     <string name="widget_password_correct">密码正确</string>
     <string name="widget_password_error">密码输入错误，密码为: %s</string>
+
+    <string name="widget_title">控件</string>
+    <string name="widget_subtitle">使用Kotlin来自定义控件</string>
+
 </resources>
