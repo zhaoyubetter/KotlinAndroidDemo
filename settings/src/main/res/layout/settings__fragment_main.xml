@@ -1,11 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/app_name" />
+    <LinearLayout
+        android:id="@+id/container_language"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@drawable/white_item_selector">
+
+        <TextView
+            android:id="@+id/multilingual"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="16dp"
+            android:text="多语言" />
+    </LinearLayout>
+
 
 </LinearLayout>
