@@ -1,29 +1,30 @@
 package test.com.kotlinandroiddemo
 
-import android.support.v7.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentTransaction
 import better.common.CommunicationTag
+import better.common.base.BaseActivity
 import better.common.communicate.home.IHomeCommunication
 import better.common.communicate.me.IMeCommunication
 import better.common.communicate.settings.ISettingsCommunication
 import better.common.communicate.widget.IWidgetCommunication
 import better.common.utils.getService
 import kotlinx.android.synthetic.main.activity_main.*
+import java.util.*
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
 
     companion object {
         val FRAGMENT_HOME = "home"
         val FRAGMENT_WIDGET = "widget"
         val FRAGMENT_ME = "me"
         val FRAGMENT_SETTING = "setting"
-
         val KEY_SAVED_FRAGMENT_TAG = "key_fragment_tag"
 
-        // tag
+        // fragment 对应的 tag 名称
         val fragmentTags = arrayOf(FRAGMENT_HOME, FRAGMENT_WIDGET, FRAGMENT_ME, FRAGMENT_SETTING)
 
         // 功能模块
@@ -40,12 +41,14 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.title = "KotlinAndroidModuleDemo"
 
 
+        // 回收后唤醒处理
         if (savedInstanceState != null) {
             restoreFragments()
             currentFragmentTag = savedInstanceState.getString(KEY_SAVED_FRAGMENT_TAG)
             isSavedInstanceCalled = true
         }
 
+        // 底部导航条事件
         navigation.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.home -> currentFragmentTag = FRAGMENT_HOME
@@ -117,5 +120,19 @@ class MainActivity : AppCompatActivity() {
     override fun onSaveInstanceState(outState: Bundle?) {
         super.onSaveInstanceState(outState)
         outState?.putString(KEY_SAVED_FRAGMENT_TAG, currentFragmentTag)
+    }
+
+    override fun onReceiveEvent(originalIntent: Intent?, eventKey: String?, eventData: Bundle?) {
+        super.onReceiveEvent(originalIntent, eventKey, eventData)
+        if (eventKey == "localeChangeEvent") {
+            val item = eventData?.getSerializable("locale") as Locale
+            var config = resources.configuration
+            config.locale = item
+            resources.updateConfiguration(config, resources.displayMetrics)
+
+            val i = baseContext.packageManager.getLaunchIntentForPackage(baseContext.packageName)
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            startActivity(i)
+        }
     }
 }

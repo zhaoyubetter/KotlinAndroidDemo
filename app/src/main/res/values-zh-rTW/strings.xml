@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Kotlin 安卓實例</string>
+    <string name="app_menu_home">首頁</string>
+    <string name="app_menu_widget">控件</string>
+    <string name="app_menu_me">我</string>
+    <string name="app_menu_settings">設置</string>
+</resources>

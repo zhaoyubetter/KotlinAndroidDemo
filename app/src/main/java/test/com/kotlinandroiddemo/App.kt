@@ -1,13 +1,15 @@
 package test.com.kotlinandroiddemo
 
 import android.app.Application
+import better.common.CommonApplication
 import test.com.kotlinandroiddemo.router.RouterCommunication
 
 /**
  * Created by zhaoyu1 on 2017/7/7.
  */
-class App : Application() {
+class App : CommonApplication() {
     companion object {
+
         private var instance: Application? = null
         fun instance() = instance     // 返回非空的 Application
     }
