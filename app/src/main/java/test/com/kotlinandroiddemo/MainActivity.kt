@@ -4,8 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentTransaction
-import better.common.CommunicationTag
 import better.common.base.BaseActivity
+import better.common.communicate.CommunicationTag
 import better.common.communicate.home.IHomeCommunication
 import better.common.communicate.me.IMeCommunication
 import better.common.communicate.settings.ISettingsCommunication
@@ -126,13 +126,17 @@ class MainActivity : BaseActivity() {
         super.onReceiveEvent(originalIntent, eventKey, eventData)
         if (eventKey == "localeChangeEvent") {
             val item = eventData?.getSerializable("locale") as Locale
-            var config = resources.configuration
+            val config = resources.configuration
             config.locale = item
             resources.updateConfiguration(config, resources.displayMetrics)
 
+            // 真正意義上的重啟要 釋放掉所有資源，如果只是 clear_top 单利资源是不会回收的
             val i = baseContext.packageManager.getLaunchIntentForPackage(baseContext.packageName)
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(i)
+            finish()
+            Runtime.getRuntime().exit(0)
         }
     }
 }

@@ -5,5 +5,5 @@ package test.com.kotlinandroiddemo.ui.model
  */
 data class ForecastList(val city: String, val country: String, val forecast: List<Forecast>) {
     // 操作符重载
-    operator fun get(position: Int): Forecast = forecast.get(position)
+    operator fun get(position: Int): Forecast = forecast[position]
 }

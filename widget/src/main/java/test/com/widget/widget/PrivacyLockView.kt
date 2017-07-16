@@ -1,14 +1,17 @@
 package test.com.widget.widget
 
 import android.content.Context
-import android.graphics.*
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.Paint
+import android.graphics.Rect
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.os.Parcelable
 import android.util.AttributeSet
 import android.view.View
-import android.widget.EditText
 import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import test.com.widget.R
 
 
@@ -206,7 +209,7 @@ class PrivacyLockView(context: Context, attrs: AttributeSet?, defAttrStyle: Int)
     /**
      * 隐藏输入法
      */
-    fun hideSortInput() = (context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).let { it.showSoftInput(this, 0) }
+    fun hideSortInput() = (context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).showSoftInput(this, 0)
 
     override fun onWindowFocusChanged(hasWindowFocus: Boolean) {
         super.onWindowFocusChanged(hasWindowFocus)

@@ -30,7 +30,7 @@ class HomeFragment : Fragment() {
     override fun onHiddenChanged(hidden: Boolean) {
         super.onHiddenChanged(hidden)
         if (!hidden) {
-            toolbar?.setTitle(R.string.home__subtitle)
+            toolbar?.setTitle(R.string.home__title)
             toolbar?.setSubtitle(R.string.home__subtitle)
         }
     }

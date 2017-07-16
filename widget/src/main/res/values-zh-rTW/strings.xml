@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">控件</string>
+    <string name="widget_user_input">輸入內容：</string>
+    <string name="widget_normal_use">基本使用</string>
+    <string name="widget_show_encry">顯示密文</string>
+    <string name="widget_count">個數</string>
+    <string name="widget_space">間隔</string>
+    <string name="widget_input_correct">輸入正確</string>
+    <string name="widget_input_code">輸入驗證碼</string>
+    <string name="widget_privacy_message">請輸入驗證碼，用以確定身份</string>
+    <string name="widget_password_correct">密碼正確</string>
+    <string name="widget_password_error">密碼輸入錯誤，密碼為：%s</string>
+
+    <string name="widget_title">控件</string>
+    <string name="widget_subtitle">使用Kotlin來自定義控件</string>
+
+
+    <string name="widget_privacy_title">驗證碼控件示例</string>
+    <string name="widget_privacy_desc">仿微信密碼、驗證碼輸入控件</string>
+
+    <string name="widget_privacy_title_base_use">基本使用實例</string>
+    <string name="widget_privacy_title_base_use_desc">仿微信密碼、驗證碼輸入控件</string>
+
+    <string name="widget_privacy_title_dialog_use">嵌入到Dialog中</string>
+    <string name="widget_privacy_title_dialog_use_desc">嵌入到Dialog中，類似於支付寶、微信輸入密碼</string>
+
+</resources>

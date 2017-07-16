@@ -3,4 +3,5 @@
     <string name="settings_title">Setting</string>
     <string name="settings_subtitle">Function Settings</string>
     <string name="settings__language">Language Settings</string>
+    <string name="settings__multi_language">Language</string>
 </resources>

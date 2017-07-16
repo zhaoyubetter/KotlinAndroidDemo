@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginLeft="16dp"
-            android:text="多语言" />
+            android:text="@string/settings__multi_language" />
     </LinearLayout>
 
 

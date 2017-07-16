@@ -6,6 +6,7 @@ import android.graphics.Typeface
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.ActionBar
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -20,7 +21,6 @@ import org.jetbrains.anko.*
 import org.jetbrains.anko.sdk25.coroutines.onClick
 import test.com.widget.model.FuncTemplate
 import test.com.widget.model.SampleItem
-import android.support.v7.app.AppCompatActivity
 
 
 /**
@@ -43,7 +43,7 @@ class WidgetFragment : Fragment() {
 
         recyclerView.layoutManager = LinearLayoutManager(activity)
         recyclerView.addItemDecoration(DividerItemDecoration(activity, LinearLayoutManager.VERTICAL))
-        val items = FuncTemplate[0] // 获取根
+        val items = FuncTemplate.getInstance(activity)[0] // 获取根
         items?.let { recyclerView.adapter = Adapter(it) }
     }
 
@@ -95,7 +95,7 @@ class WidgetFragment : Fragment() {
             holder.itemView.find<TextView>(android.R.id.text2).text = item.desc
             holder.itemView.onClick {
                 val context = it?.context ?: return@onClick
-                if (item.id in FuncTemplate) {
+                if (item.id in FuncTemplate.getInstance(context)) {
                     it.context.startActivity(Intent(context, MainKotlinActivity::class.java).apply {
                         putExtra("id", item.id)
                         putExtra("title", item.title)

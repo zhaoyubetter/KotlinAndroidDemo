@@ -1,4 +1,4 @@
-package better.common
+package better.common.communicate
 
 /**
  * Communication Tag，单例形式

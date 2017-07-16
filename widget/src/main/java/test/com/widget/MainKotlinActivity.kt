@@ -3,8 +3,8 @@ package test.com.widget
 import android.app.Activity
 import android.content.Intent
 import android.graphics.Typeface
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -39,7 +39,7 @@ class MainKotlinActivity : AppCompatActivity() {
 
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.addItemDecoration(DividerItemDecoration(this, LinearLayoutManager.VERTICAL))
-        val items = FuncTemplate[id]
+        val items = FuncTemplate.getInstance(this)[id]
         items?.let { recyclerView.adapter = Adapter(it) }
     }
 
@@ -82,7 +82,7 @@ class MainKotlinActivity : AppCompatActivity() {
             holder.itemView.find<TextView>(android.R.id.text2).text = item.desc
             holder.itemView.onClick {
                 val context = it?.context ?: return@onClick
-                if (item.id in FuncTemplate) {
+                if (item.id in FuncTemplate.getInstance(context)) {
                     it.context.startActivity(Intent(context, MainKotlinActivity::class.java).apply {
                         putExtra("id", item.id)
                         putExtra("title", item.title)

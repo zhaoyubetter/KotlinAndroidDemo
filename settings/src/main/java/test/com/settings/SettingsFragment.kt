@@ -3,6 +3,7 @@ package test.com.settings
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v4.view.ViewPager
 import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatActivity
 import android.view.LayoutInflater
@@ -21,6 +22,8 @@ class SettingsFragment : Fragment() {
         return inflater?.inflate(R.layout.settings__fragment_main, container, false)
     }
 
+
+
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         toolbar = (activity as AppCompatActivity).supportActionBar
@@ -29,6 +32,7 @@ class SettingsFragment : Fragment() {
         container_language.onClick {
             startActivity(Intent(activity, LanguageSettingsActivity::class.java))
         }
+
     }
 
     override fun onHiddenChanged(hidden: Boolean) {

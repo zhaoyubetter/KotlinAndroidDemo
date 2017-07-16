@@ -1,18 +1,16 @@
 package test.com.settings
 
-import android.content.res.Configuration
-import android.content.res.Resources
+//import kotlinx.android.synthetic.main.common__toolbar.*
 import android.os.Build
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
-import android.util.DisplayMetrics
 import android.view.ViewGroup
 import android.widget.TextView
-//import kotlinx.android.synthetic.main.common__toolbar.*
+import better.common.utils.postEvent
 import kotlinx.android.synthetic.main.settings__activity_language_setttings.*
 import org.jetbrains.anko.find
 import org.jetbrains.anko.layoutInflater
@@ -50,17 +48,17 @@ class LanguageSettingsActivity : AppCompatActivity() {
         }
 
         val local = Locale(item.codeCountry, item.codeLanguage)
-        if(sysLocal != local) {
-            config.locale = Locale(item.codeCountry, item.codeLanguage)
-            resources.updateConfiguration(config, resources.displayMetrics)
+        if (sysLocal != local) {
+//            config.locale = Locale(item.codeCountry, item.codeLanguage)
+//            resources.updateConfiguration(config, resources.displayMetrics)
+            postEvent("localeChangeEvent", Bundle().apply { putSerializable("locale", local) })
         }
     }
 
+
     inner class Adapter(val datas: List<LanguageModel>, val closure: ((LanguageModel) -> Unit)?) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder {
-            val view = parent?.context?.layoutInflater?.let {
-                it.inflate(android.R.layout.simple_list_item_1, parent, false)
-            }
+            val view = parent?.context?.layoutInflater?.inflate(android.R.layout.simple_list_item_1, parent, false)
             return object : RecyclerView.ViewHolder(view) {}
         }
 

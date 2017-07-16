@@ -3,4 +3,5 @@
     <string name="settings_title">設置</string>
     <string name="settings_subtitle">設置功能</string>
     <string name="settings__language">設置語言</string>
+    <string name="settings__multi_language">多語言</string>
 </resources>

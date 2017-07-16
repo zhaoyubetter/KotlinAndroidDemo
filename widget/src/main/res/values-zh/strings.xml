@@ -14,7 +14,6 @@
     <string name="widget_title">控件</string>
     <string name="widget_subtitle">使用Kotlin来自定义控件</string>
 
-
     <string name="widget_privacy_title">验证码控件示例</string>
     <string name="widget_privacy_desc">仿微信密码、验证码输入控件</string>
 
@@ -23,6 +22,5 @@
 
     <string name="widget_privacy_title_dialog_use">嵌入到Dialog中</string>
     <string name="widget_privacy_title_dialog_use_desc">嵌入到Dialog中，类似于支付宝、微信输入密码</string>
-
 
 </resources>

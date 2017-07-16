@@ -1,6 +1,5 @@
 package better.common.communicate
 
-import better.common.CommunicationTag
 import better.common.communicate.router.IRouterCommunication
 import java.lang.RuntimeException
 

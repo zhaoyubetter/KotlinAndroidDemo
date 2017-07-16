@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">widget</string>
+    <string name="widget_user_input">input：</string>
+    <string name="widget_normal_use">base use</string>
+    <string name="widget_show_encry">encrypt</string>
+    <string name="widget_count">number</string>
+    <string name="widget_space">space</string>
+    <string name="widget_input_correct">input correct</string>
+    <string name="widget_input_code">input verify code</string>
+    <string name="widget_privacy_message">input verify code, then confirm use</string>
+    <string name="widget_password_correct"> password correct</string>
+    <string name="widget_password_error">password wrong, right is %s</string>
+
+    <string name="widget_title">widget</string>
+    <string name="widget_subtitle">use Kotlin to define user\'s widget</string>
+
+    <string name="widget_privacy_title">Password Input Widget Sample</string>
+    <string name="widget_privacy_desc">Like Wechat password/verify code input</string>
+
+    <string name="widget_privacy_title_base_use">Base Use Sample</string>
+    <string name="widget_privacy_title_base_use_desc">Like Wechat password/verify code input</string>
+
+    <string name="widget_privacy_title_dialog_use">Inner in Dialog</string>
+    <string name="widget_privacy_title_dialog_use_desc">Inner in Dialog, Like Wechat password/verify code input</string>
+
+</resources>

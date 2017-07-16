@@ -1,7 +1,7 @@
 package com.better.module.home.communication
 
-import better.common.CommunicationTag
 import better.common.communicate.BaseModule
+import better.common.communicate.CommunicationTag
 import better.common.communicate.router.IRouterCommunication
 
 /**
