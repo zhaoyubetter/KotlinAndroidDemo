@@ -20,32 +20,40 @@ class LanguageTemplate {
         }
 
         init {
+
+            item {
+                langName = "跟随系统"
+                langValue = "system"
+                codeCountry = ""
+                codeLanguage = ""
+            }
+
             item {
                 langName = "中文（简体）"
                 langValue = "zh"
-                codeCountry = "zh"
-                codeLanguage = "CN"
+                codeCountry = "CN"
+                codeLanguage = "zh"
             }
 
             item {
                 langName = "中文-香港（繁體）"
                 langValue = "rHK"
-                codeCountry = "zh"
-                codeLanguage = "TW"
+                codeCountry = "TW"
+                codeLanguage = "zh"
             }
 
             item {
                 langName = "中文-台灣（繁體）"
                 langValue = "rTW"
-                codeCountry = "zh"
-                codeLanguage = "TW"
+                codeCountry = "TW"
+                codeLanguage = "zh"
             }
 
             item {
                 langName = "English"
                 langValue = "en"
-                codeCountry = "en"
-                codeLanguage = "US"
+                codeCountry = "US"
+                codeLanguage = "en"
             }
         }
     }

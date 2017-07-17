@@ -2,6 +2,7 @@ package better.common
 
 import android.app.Application
 import better.common.lifecycle.CommonActivityLifeCycleCallback
+import better.common.locale.UserLocale
 import java.util.*
 
 /**
@@ -20,9 +21,11 @@ open class CommonApplication : Application() {
      * app 初始化时，指定Locale
      */
     private fun initLocale() {
-        val item = Locale("en", "US")
+        val locale:Locale? = UserLocale.getUserLocale(this)
         val config = resources.configuration
-        config.locale = item
-        resources.updateConfiguration(config, resources.displayMetrics)
+        if (locale != null) {
+            config.locale = locale
+            resources.updateConfiguration(config, resources.displayMetrics)
+        }
     }
 }

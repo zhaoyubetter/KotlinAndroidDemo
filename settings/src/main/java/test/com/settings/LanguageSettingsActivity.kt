@@ -1,6 +1,5 @@
 package test.com.settings
 
-//import kotlinx.android.synthetic.main.common__toolbar.*
 import android.os.Build
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -10,6 +9,8 @@ import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
 import android.view.ViewGroup
 import android.widget.TextView
+import better.common.sharedprefrences.Preference
+import better.common.sharedprefrences.SharedPrefs
 import better.common.utils.postEvent
 import kotlinx.android.synthetic.main.settings__activity_language_setttings.*
 import org.jetbrains.anko.find
@@ -25,8 +26,6 @@ class LanguageSettingsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.settings__activity_language_setttings)
 
-//        toolbar?.setTitle(R.string.settings__language)
-
         val toolbar = find<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
         toolbar.setTitle(R.string.settings__language)
@@ -41,16 +40,17 @@ class LanguageSettingsActivity : AppCompatActivity() {
     }
 
     private fun changeLocale(item: LanguageModel) {
-        var config = resources.configuration
-        var sysLocal: Locale? = resources.configuration.locale
+        // 当前设置的locale
+        var currentLocale: Locale = resources.configuration.locale
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            sysLocal = resources.configuration.locales[0]
+            currentLocale = resources.configuration.locales[0]
         }
 
-        val local = Locale(item.codeCountry, item.codeLanguage)
-        if (sysLocal != local) {
-//            config.locale = Locale(item.codeCountry, item.codeLanguage)
-//            resources.updateConfiguration(config, resources.displayMetrics)
+        // 用户选择的
+        val local = Locale(item.codeLanguage, item.codeCountry)
+        if (currentLocale != local) {
+            SharedPrefs.codeLanguage = item.codeLanguage ?: ""
+            SharedPrefs.codeCountry = item.codeCountry ?: ""
             postEvent("localeChangeEvent", Bundle().apply { putSerializable("locale", local) })
         }
     }
