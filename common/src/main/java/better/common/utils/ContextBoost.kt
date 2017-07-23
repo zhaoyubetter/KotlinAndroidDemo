@@ -1,7 +1,10 @@
 package better.common.utils
 
 import android.app.Activity
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.content.LocalBroadcastManager
@@ -13,7 +16,6 @@ import java.lang.Exception
  * 扩展方法
  * Created by zhaoyu1 on 2017/7/11.
  */
-
 
 // ============ 模块之间通信控制
 /**
@@ -43,7 +45,6 @@ val Activity.COMMON_EVENT_ACTION: String get() = "COMMON_EVENT_ACTION"
 val Activity.COMMON_EVENT_KEY: String get() = "COMMON_EVENT_KEY"
 val Activity.COMMON_EVENT_DATA: String get() = "COMMON_EVENT_DATA"
 
-
 /**
  * 发送事件
  * @param eventKey 事件key
@@ -70,9 +71,41 @@ inline fun Fragment.postEvent(eventKey: String, eventData: Bundle?) {
     }
 }
 
-/**
- * 接收事件
- */
-//fun Activity.onReceiveEvent(originalIntent: Intent? = null, eventKey: String? = null, eventData: Bundle? = null)  {
-//}
 
+// -------------------------------------------------------------------
+// [07-22]使用cz推荐的新方案, 想要的时候，直接注册，避免每个activity新建的时候注册
+// -------------------------------------------------------------------
+
+
+val receiverMap = mutableMapOf<String, BroadcastReceiver>()
+
+/**
+ * 注册事件，只注册一次
+ * @param closure:
+ */
+fun Activity.registerEvent(closure: (Intent?, String?, Bundle?) -> Unit) {
+    receiverMap.get(this.toString()) ?: let {
+        val filter = IntentFilter(COMMON_EVENT_ACTION)
+        val localReceiver = object : BroadcastReceiver() {
+            override fun onReceive(context: Context?, intent: Intent?) {
+                val eventKey = intent?.getStringExtra(COMMON_EVENT_KEY)
+                val eventValue = intent?.getBundleExtra(COMMON_EVENT_DATA)
+                closure.invoke(intent, eventKey, eventValue)
+            }
+        }
+
+        // 存放在map中
+        receiverMap.put(this.toString(), localReceiver)
+        LocalBroadcastManager.getInstance(this).registerReceiver(localReceiver, filter)
+    }
+}
+
+
+/**
+ * 解除所有广播接收者
+ */
+fun Activity.unRegisterEvent() {
+    receiverMap[this.toString()]?.let {
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(receiverMap.remove(this.toString()))
+    }
+}

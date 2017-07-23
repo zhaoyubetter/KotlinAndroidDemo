@@ -9,7 +9,7 @@ import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
 import android.view.ViewGroup
 import android.widget.TextView
-import better.common.sharedprefrences.Preference
+import better.common.CommonKey
 import better.common.sharedprefrences.SharedPrefs
 import better.common.utils.postEvent
 import kotlinx.android.synthetic.main.settings__activity_language_setttings.*
@@ -51,7 +51,7 @@ class LanguageSettingsActivity : AppCompatActivity() {
         if (currentLocale != local) {
             SharedPrefs.codeLanguage = item.codeLanguage ?: ""
             SharedPrefs.codeCountry = item.codeCountry ?: ""
-            postEvent("localeChangeEvent", Bundle().apply { putSerializable("locale", local) })
+            postEvent(CommonKey.EVENT_CHANGE_LOCALE, Bundle().apply { putSerializable("locale", local) })
         }
     }
 

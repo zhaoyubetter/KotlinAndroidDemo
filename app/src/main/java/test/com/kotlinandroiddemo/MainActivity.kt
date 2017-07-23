@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentTransaction
+import better.common.CommonKey
 import better.common.base.BaseActivity
 import better.common.communicate.CommunicationTag
 import better.common.communicate.home.IHomeCommunication
@@ -11,6 +12,7 @@ import better.common.communicate.me.IMeCommunication
 import better.common.communicate.settings.ISettingsCommunication
 import better.common.communicate.widget.IWidgetCommunication
 import better.common.utils.getService
+import better.common.utils.registerEvent
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 
@@ -36,6 +38,7 @@ class MainActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
         supportActionBar?.title = "KotlinAndroidModuleDemo"
@@ -78,7 +81,15 @@ class MainActivity : BaseActivity() {
 
         // 设置功能
         setupTabFun()
+
+        // 监听广播
+        registerEvent { intent, key, bundle ->
+            if (key == CommonKey.EVENT_CHANGE_LOCALE) {
+                changeLocale(bundle?.getSerializable("locale") as Locale)
+            }
+        }
     }
+
 
     private fun restoreFragments() {
         supportFragmentManager.beginTransaction().let {
@@ -122,21 +133,19 @@ class MainActivity : BaseActivity() {
         outState?.putString(KEY_SAVED_FRAGMENT_TAG, currentFragmentTag)
     }
 
-    override fun onReceiveEvent(originalIntent: Intent?, eventKey: String?, eventData: Bundle?) {
-        super.onReceiveEvent(originalIntent, eventKey, eventData)
-        if (eventKey == "localeChangeEvent") {
-            val item = eventData?.getSerializable("locale") as Locale
-            val config = resources.configuration
-            config.locale = item
-            resources.updateConfiguration(config, resources.displayMetrics)
 
-            // 真正意義上的重啟要 釋放掉所有資源，如果只是 clear_top 单利资源是不会回收的
-            val i = baseContext.packageManager.getLaunchIntentForPackage(baseContext.packageName)
-            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            startActivity(i)
-            finish()
-            Runtime.getRuntime().exit(0)
-        }
+    private inline fun changeLocale(locale: Locale) {
+        val config = resources.configuration
+        config.locale = locale
+        resources.updateConfiguration(config, resources.displayMetrics)
+
+        // 真正意義上的重啟要 釋放掉所有資源，如果只是 clear_top 单利资源是不会回收的
+        val i = baseContext.packageManager.getLaunchIntentForPackage(baseContext.packageName)
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        startActivity(i)
+        finish()
+        Runtime.getRuntime().exit(0)
     }
+
 }
