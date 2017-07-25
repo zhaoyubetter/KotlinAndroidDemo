@@ -7,6 +7,13 @@ import android.support.v7.app.AppCompatActivity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import kotlinx.android.synthetic.main.home_layout_fragment_home.*
+import lib.basenet.okhttp.OkHttpRequest
+import lib.basenet.request.AbsRequestCallBack
+import lib.basenet.response.Response
+import org.jetbrains.anko.sdk25.coroutines.onClick
+import org.jetbrains.anko.support.v4.toast
 
 /**
  * home fragment
@@ -25,6 +32,18 @@ class HomeFragment : Fragment() {
         toolbar = (activity as AppCompatActivity).supportActionBar
         toolbar?.setTitle(R.string.home__title)
         toolbar?.setSubtitle(R.string.home__subtitle)
+
+        btn_test.onClick {
+            OkHttpRequest.Builder().url("http://www.baidu.com").callback(object : AbsRequestCallBack<String>() {
+                override fun onSuccess(response: Response<String>) {
+                    toast(response.message)
+                }
+
+                override fun onFailure(e: Throwable) {
+                    toast(e.toString())
+                }
+            }).build().request()
+        }
     }
 
     override fun onHiddenChanged(hidden: Boolean) {

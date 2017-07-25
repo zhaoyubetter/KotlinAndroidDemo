@@ -3,6 +3,7 @@ package test.com.widget.model
 import android.app.Activity
 import android.content.Context
 import test.com.widget.R
+import test.com.widget.ui.PaletteImageViewActivity
 import test.com.widget.ui.PrivacyLockViewDialogUseActivity
 import test.com.widget.ui.PrivacyLockViewNormalUseActivity
 
@@ -58,6 +59,13 @@ class FuncTemplate private constructor(ctx: Context) {
                     desc = ctx.resources.getString(R.string.widget_privacy_title_dialog_use_desc)
                     clazz = PrivacyLockViewDialogUseActivity::class.java
                 }
+            }
+
+            item {
+                id = 2
+                title = ctx.resources.getString(R.string.widget_palette_view_title)
+                desc = ctx.resources.getString(R.string.widget_palette_view_desc)
+                clazz = PaletteImageViewActivity::class.java
             }
         }
     }

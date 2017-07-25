@@ -2,6 +2,7 @@
 <resources>
     <declare-styleable name="WidgetAttribute">
         <attr name="privacyLockView" format="reference" />
+        <attr name="paletteImageView" format="reference" />
     </declare-styleable>
 
     <!-- 验证输入框 -->
@@ -14,5 +15,15 @@
         <attr name="pv_privacyDrawableHeight" format="dimension" />
         <attr name="pv_borderColor" format="color" />   <!-- 边框颜色 -->
         <attr name="pv_borderStrokeWidth" format="dimension" />   <!-- 边框线宽 -->
+    </declare-styleable>
+
+    <!-- 带阴影背景的View -->
+    <declare-styleable name="PaletteImageView">
+        <attr name="paletteRadius" format="dimension" />
+        <attr name="paletteSrc" format="reference" />
+        <attr name="palettePadding" format="dimension" />
+        <attr name="paletteOffsetX" format="dimension" />
+        <attr name="paletteOffsetY" format="dimension" />
+        <attr name="paletteShadowRadius" format="dimension" />
     </declare-styleable>
 </resources>
