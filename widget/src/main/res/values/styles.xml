@@ -13,8 +13,8 @@
     <style name="PaletteImageView">
         <item name="paletteRadius">0dp</item>
         <item name="palettePadding">8dp</item>
-        <item name="paletteOffsetX">8dp</item>
-        <item name="paletteOffsetY">8dp</item>
-        <item name="paletteShadowRadius">10dp</item>
+        <item name="paletteOffsetX">4dp</item>
+        <item name="paletteOffsetY">4dp</item>
+        <item name="paletteShadowRadius">2dp</item>
     </style>
 </resources>

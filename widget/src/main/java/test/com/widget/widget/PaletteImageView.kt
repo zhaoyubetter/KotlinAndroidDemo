@@ -10,6 +10,7 @@ import android.util.AttributeSet
 import android.view.View
 import test.com.widget.R
 import java.lang.ref.WeakReference
+import android.graphics.BitmapFactory
 
 
 /**
@@ -56,11 +57,7 @@ class PaletteImageView(context: Context, attrs: AttributeSet?, defAttrStyle: Int
     private var asyncTask: AsyncTask<Bitmap, Void, Palette>? = null
 
     // ---- 对外接口
-    var listener: OnParseColorListener? = null
-        set(value) {
-            field = listener
-        }
-
+    private var listener: OnParseColorListener? = null
 
     init {
         context.obtainStyledAttributes(attrs, R.styleable.PaletteImageView, R.attr.paletteImageView, R.style.PaletteImageView).apply {
@@ -100,9 +97,7 @@ class PaletteImageView(context: Context, attrs: AttributeSet?, defAttrStyle: Int
         if (bitmap != null) {
             height = ((width - 2 * padding) * (bitmap!!.height * 1.0f / bitmap!!.width) + 2 * padding).toInt()
         }
-
-        setMeasuredDimension(width,height)
-//        setMeasuredDimension(resolveSize(width, widthMode), resolveSize(height, heightMode))
+        setMeasuredDimension(width, height)
     }
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
@@ -116,8 +111,8 @@ class PaletteImageView(context: Context, attrs: AttributeSet?, defAttrStyle: Int
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
         if (realBitmap != null) {
-            canvas?.drawRoundRect(rectFShadow, radius, radius, paintShadow)
-            canvas?.drawBitmap(roundBitmap, padding, padding, null)
+            canvas?.drawRoundRect(rectFShadow, radius, radius, paintShadow)     // 画阴影
+            canvas?.drawBitmap(roundBitmap, padding, padding, null)             // 画图片
             mainColor?.let {
                 asyncTask?.cancel(true)
             }
@@ -145,7 +140,8 @@ class PaletteImageView(context: Context, attrs: AttributeSet?, defAttrStyle: Int
 
     fun setBitmap(bitmap: Bitmap) {
         this.bitmap = bitmap
-        invalidate()
+        this.mainColor = null
+        requestLayout()
     }
 
     fun setPalettePadding(r: Float) {
@@ -154,12 +150,12 @@ class PaletteImageView(context: Context, attrs: AttributeSet?, defAttrStyle: Int
     }
 
     fun setPaletteOffsetX(r: Float) {
-        if (r >= padding) offsetX = r else offsetX = padding
+        if (r >= padding) offsetX = padding else offsetX = r
         handler.sendEmptyMessage(MSG)
     }
 
     fun setPaletteOffsetY(r: Float) {
-        if (r >= padding) offsetY = r else offsetY = padding
+        if (r >= padding) offsetY = padding else offsetY = r
         handler.sendEmptyMessage(MSG)
     }
 
@@ -206,39 +202,44 @@ class PaletteImageView(context: Context, attrs: AttributeSet?, defAttrStyle: Int
 
     /**
      * 柔和的
+     */
     fun getMutedColor(): IntArray? {
-    if (mPalette == null || mPalette.getMutedSwatch() == null) return null
-    val arry = IntArray(3)
-    arry[0] = mPalette.getMutedSwatch().getTitleTextColor()
-    arry[1] = mPalette.getMutedSwatch().getBodyTextColor()
-    arry[2] = mPalette.getMutedSwatch().getRgb()
-    return arry
-    }*/
+        if (palette == null || palette?.mutedSwatch == null) return null
+        val arry = IntArray(3)
+        arry[0] = palette?.mutedSwatch?.titleTextColor ?: 0
+        arry[1] = palette?.mutedSwatch?.bodyTextColor ?: 0
+        arry[2] = palette?.mutedSwatch?.rgb ?: 0
+        return arry
+    }
 
     /**
      * 柔和的，暗
-
+     */
     fun getDarkMutedColor(): IntArray? {
-    if (mPalette == null || mPalette.getDarkMutedSwatch() == null) return null
-    val arry = IntArray(3)
-    arry[0] = mPalette.getDarkMutedSwatch().getTitleTextColor()
-    arry[1] = mPalette.getDarkMutedSwatch().getBodyTextColor()
-    arry[2] = mPalette.getDarkMutedSwatch().getRgb()
-    return arry
+        if (palette == null || palette?.getDarkMutedSwatch() == null) return null
+        val arry = IntArray(3)
+        arry[0] = palette?.getDarkMutedSwatch()?.getTitleTextColor() ?: 0
+        arry[1] = palette?.getDarkMutedSwatch()?.getBodyTextColor() ?: 0
+        arry[2] = palette?.getDarkMutedSwatch()?.getRgb() ?: 0
+        return arry
     }
 
     fun getLightMutedColor(): IntArray? {
-    if (mPalette == null || mPalette.getLightMutedSwatch() == null) return null
-    val arry = IntArray(3)
-    arry[0] = mPalette.getLightMutedSwatch().getTitleTextColor()
-    arry[1] = mPalette.getLightMutedSwatch().getBodyTextColor()
-    arry[2] = mPalette.getLightMutedSwatch().getRgb()
-    return arry
-    }*/
+        if (palette == null || palette?.getDarkMutedSwatch() == null) return null
+        val arry = IntArray(3)
+        arry[0] = palette?.getLightMutedSwatch()?.getTitleTextColor() ?: 0
+        arry[1] = palette?.getLightMutedSwatch()?.getBodyTextColor() ?: 0
+        arry[2] = palette?.getLightMutedSwatch()?.getRgb() ?: 0
+        return arry
+    }
 
     interface OnParseColorListener {
         fun onComplete(paletteImageView: PaletteImageView)
         fun onFail()
+    }
+
+    fun setListener(listener: OnParseColorListener) {
+        this.listener = listener
     }
 
     /**
@@ -273,6 +274,7 @@ class PaletteImageView(context: Context, attrs: AttributeSet?, defAttrStyle: Int
             return
         }
 
+        //---- 图片原始高度
         var rawWidth: Int = 0
         var rawHeight: Int = 0
 
@@ -283,18 +285,22 @@ class PaletteImageView(context: Context, attrs: AttributeSet?, defAttrStyle: Int
             options.inJustDecodeBounds = true
             rawWidth = options.outWidth
             rawHeight = options.outHeight
-            options.inSampleSize = calculateInSample(rawWidth, rawHeight, (width - 2 * padding).toInt(), (height - 2 * padding).toInt())
+            options.inSampleSize = calculateInSampleSize(options, (width - 2 * padding).toInt(), (height - 2 * padding).toInt())
             options.inJustDecodeBounds = false
             bitmap = BitmapFactory.decodeResource(resources, imgId, options)
-        } else if (imgId == 0 && bitmap != null) {  // 直接设置的bitmap
+        } else if (imgId == 0 && bitmap != null) {  // 有了bitmap，缩放一下 bitmap,形成 realbitmap
             rawWidth = bitmap?.width ?: 0
             rawHeight = bitmap?.height ?: 0
-            val scale = rawHeight * 1.0f / rawWidth     // 等比缩放
-            realBitmap = Bitmap.createScaledBitmap(bitmap, reqWidth.toInt(), (reqWidth * scale).toInt(), true)
+            val scale = rawHeight * 1.0f / rawWidth     // 等比缩放系数
+            realBitmap = Bitmap.createScaledBitmap(bitmap, reqWidth.toInt(), (reqWidth * scale).toInt(), true)   // 宽 ，宽 * 系数
             initShadow(realBitmap)
             return
         }
 
+        // 修正问题，bitmap已经缩放过了，直接赋值
+        realBitmap = bitmap
+
+        /*
         // 判断高度模式
         if (heightMode == MeasureSpec.UNSPECIFIED) {
             val scale = rawHeight * 1.0f / rawWidth
@@ -311,8 +317,12 @@ class PaletteImageView(context: Context, attrs: AttributeSet?, defAttrStyle: Int
             } else if (rawHeight < rawWidth) {
                 dx = (rawWidth - rawHeight) / 2
             }
-            realBitmap = Bitmap.createBitmap(bitmap, dx, dy, small, small, matrix, true)
-        }
+            //realBitmap = Bitmap.createBitmap(bitmap, dx, dy, small, small, matrix, true)
+
+            val scale2 = rawHeight * 1.0f / rawWidth
+            realBitmap = bitmap
+        }*/
+
         initShadow(realBitmap)
     }
 
@@ -336,15 +346,32 @@ class PaletteImageView(context: Context, attrs: AttributeSet?, defAttrStyle: Int
         }
     }
 
-    private fun calculateInSample(rawWidth: Int, rawHeight: Int, reqWidth: Int, reqHeight: Int): Int {
+    private fun calculateInSampleSize(options: BitmapFactory.Options, reqWidth: Int, reqHeight: Int): Int {
+        val height = options.outHeight
+        val width = options.outWidth
         var inSampleSize = 1
-        if (rawWidth > reqWidth || rawHeight > reqHeight) {
-            val widthRatio = Math.round(rawWidth * 1.0f / reqWidth)
-            val heightRatio = Math.round(rawHeight * 1.0f / reqHeight)
-            inSampleSize = Math.min(widthRatio, heightRatio)
+
+        if (height > reqHeight || width > reqWidth) {
+
+            val halfHeight = height / 2
+            val halfWidth = width / 2
+
+            // Calculate the largest inSampleSize value that is a power of 2 and keeps both
+            // height and width larger than the requested height and width.
+            while (halfHeight / inSampleSize > reqHeight && halfWidth / inSampleSize > reqWidth) {
+                inSampleSize *= 2
+            }
+
+            var totalPixels = (width * height / inSampleSize).toLong()
+            val totalReqPixelsCap = (reqWidth * reqHeight * 2).toLong()
+            while (totalPixels > totalReqPixelsCap) {
+                inSampleSize *= 2
+                totalPixels /= 2
+            }
         }
         return inSampleSize
     }
+
 
     private class CurrentHandler(paletteView: PaletteImageView) : Handler() {
 

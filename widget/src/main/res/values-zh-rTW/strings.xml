@@ -23,5 +23,10 @@
 
     <string name="widget_privacy_title_dialog_use">嵌入到Dialog中</string>
     <string name="widget_privacy_title_dialog_use_desc">嵌入到Dialog中，類似於支付寶、微信輸入密碼</string>
+    <string name="widget__image_radius">图片半径</string>
+    <string name="widget__shadow_radius">阴影半径</string>
+    <string name="widget__x_offset">X偏移量</string>
+    <string name="widget__y_offset">Y偏移量</string>
+    <string name="widget__next">下一个</string>
 
 </resources>
