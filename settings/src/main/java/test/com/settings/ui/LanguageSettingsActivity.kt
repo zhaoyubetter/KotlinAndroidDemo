@@ -1,4 +1,4 @@
-package test.com.settings
+package test.com.settings.ui
 
 import android.os.Build
 import android.os.Bundle
@@ -16,6 +16,7 @@ import kotlinx.android.synthetic.main.settings__activity_language_setttings.*
 import org.jetbrains.anko.find
 import org.jetbrains.anko.layoutInflater
 import org.jetbrains.anko.sdk25.coroutines.onClick
+import test.com.settings.R
 import test.com.settings.model.LanguageModel
 import test.com.settings.model.LanguageTemplate
 import java.util.*

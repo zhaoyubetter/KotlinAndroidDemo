@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">公共的</string>
+    <!-- 24小时 (23:23) -->
+    <string name="common__time_fmt_24">HH:ss</string>
+    <!-- 下午 (上午10:20) -->
+    <string name="common__time_fmt_12">ahh:mm</string>
+    <!-- 2017-07-27 -->
+    <string name="common__date_fmt_short">yyyy-MM-dd</string>
+    <!-- 2017-07-27 上午08:08 -->
+    <string name="common__datetime_fmt_12">yyyy-MM-dd ahh:mm</string>
+
 </resources>

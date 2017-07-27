@@ -4,4 +4,11 @@
     <string name="settings_subtitle">設定功能</string>
     <string name="settings__language">設定語言</string>
     <string name="settings__multi_language">多語言</string>
+    <string name="settings__sys_time">系统时间</string>
+    <string name="settings__standard_time">标准时间</string>
+    <string name="settings__beijing_time">北京时间</string>
+    <string name="settings__dongjing_time">东京时间</string>
+    <string name="settings__tanxiangshan">檀香山</string>
+    <string name="settings__date_time_demo_title">日期与时间示例</string>
+    <string name="settings__date_time_show">时间显示</string>
 </resources>

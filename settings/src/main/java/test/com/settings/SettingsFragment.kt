@@ -3,7 +3,6 @@ package test.com.settings
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v4.view.ViewPager
 import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatActivity
 import android.view.LayoutInflater
@@ -11,6 +10,8 @@ import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.settings__fragment_main.*
 import org.jetbrains.anko.sdk25.coroutines.onClick
+import test.com.settings.ui.DateTimeDemoActivity
+import test.com.settings.ui.LanguageSettingsActivity
 
 /**
  * Created by zhaoyu1 on 2017/7/12.
@@ -31,6 +32,9 @@ class SettingsFragment : Fragment() {
         toolbar?.setSubtitle(R.string.settings_subtitle)
         container_language.onClick {
             startActivity(Intent(activity, LanguageSettingsActivity::class.java))
+        }
+        date_time.onClick {
+            startActivity(Intent(activity, DateTimeDemoActivity::class.java))
         }
 
     }

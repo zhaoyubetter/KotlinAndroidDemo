@@ -6,7 +6,8 @@
         android:allowBackup="true"
         android:label="@string/app_name"
         android:supportsRtl="true">
-        <activity android:name=".LanguageSettingsActivity"></activity>
+        <activity android:name=".ui.LanguageSettingsActivity" />
+        <activity android:name=".ui.DateTimeDemoActivity"></activity>
     </application>
 
 </manifest>

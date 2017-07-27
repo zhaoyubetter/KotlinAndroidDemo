@@ -17,7 +17,14 @@
             android:layout_gravity="center"
             android:layout_marginLeft="16dp"
             android:text="@string/settings__multi_language" />
+
     </LinearLayout>
 
-
+    <TextView
+        android:id="@+id/date_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="16dp"
+        android:text="@string/settings__date_time_show" />
 </LinearLayout>

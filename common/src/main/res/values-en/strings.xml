@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">common</string>
+    <!-- 10:20 PM -->
+    <string name="common__time_fmt_12">hh:mm a</string>
+    <!--28/07/2017-->
+    <string name="common__date_fmt_short">dd/MM/yyyy</string>
+    <!-- 27 Jul 2017 08:08 PM -->
+    <string name="common__datetime_fmt_12">d MMM yyyy hh:mm a</string>
 </resources>
