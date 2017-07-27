@@ -77,24 +77,28 @@ class PaletteImageView(context: Context, attrs: AttributeSet?, defAttrStyle: Int
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-        val width = MeasureSpec.getSize(widthMeasureSpec)
+        var width = MeasureSpec.getSize(widthMeasureSpec)
         val widthMode = MeasureSpec.getMode(widthMeasureSpec)
         var height = MeasureSpec.getSize(heightMeasureSpec)
         heightMode = MeasureSpec.getMode(heightMeasureSpec)
 
         if (heightMode == MeasureSpec.UNSPECIFIED) {
             bitmap?.let {
+                width = Math.min((it.width + 2 * padding).toInt(), width)
                 height = ((width - 2 * padding) * (it.height * 1.0f / it.width) + 2 * padding).toInt()
             }
-
             if (srcId != 0) {
                 realBitmap?.let {
+                    width = Math.min((it.width + 2 * padding).toInt(), width)
                     height = (it.height + 2 * padding).toInt()
                 }
             }
         }
 
         bitmap?.let {
+            if(widthMode != MeasureSpec.EXACTLY) {
+                width = Math.min((it.width + 2 * padding).toInt(), width)
+            }
             height = ((width - 2 * padding) * (it.height * 1.0f / it.width) + 2 * padding).toInt()
         }
 
