@@ -57,7 +57,7 @@ class PaletteImageViewActivity : ToolbarActivity(), SeekBar.OnSeekBarChangeListe
         })
 
         btn_next.onClick {
-            if (index == imageSrc.size - 1) {
+            if (index == imageSrc.size) {
                 index = 0
             }
             palette.setBitmap(BitmapFactory.decodeResource(resources, imageSrc.get(index)))
