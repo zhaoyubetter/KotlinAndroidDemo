@@ -2,15 +2,12 @@ package test.com.widget.widget
 
 import android.content.Context
 import android.graphics.*
-import android.os.AsyncTask
-import android.os.Handler
-import android.os.Message
+import android.os.*
 import android.support.v7.graphics.Palette
 import android.util.AttributeSet
 import android.view.View
 import test.com.widget.R
 import java.lang.ref.WeakReference
-import android.graphics.BitmapFactory
 
 
 /**
@@ -86,17 +83,21 @@ class PaletteImageView(context: Context, attrs: AttributeSet?, defAttrStyle: Int
         heightMode = MeasureSpec.getMode(heightMeasureSpec)
 
         if (heightMode == MeasureSpec.UNSPECIFIED) {
-            if (bitmap != null) {
-                height = ((width - 2 * padding) * (bitmap!!.height * 1.0f / bitmap!!.width) + 2 * padding).toInt()
+            bitmap?.let {
+                height = ((width - 2 * padding) * (it.height * 1.0f / it.width) + 2 * padding).toInt()
             }
-            if (srcId != 0 && realBitmap != null) {
-                height = (realBitmap!!.height + 2 * padding).toInt()
+
+            if (srcId != 0) {
+                realBitmap?.let {
+                    height = (it.height + 2 * padding).toInt()
+                }
             }
         }
 
-        if (bitmap != null) {
-            height = ((width - 2 * padding) * (bitmap!!.height * 1.0f / bitmap!!.width) + 2 * padding).toInt()
+        bitmap?.let {
+            height = ((width - 2 * padding) * (it.height * 1.0f / it.width) + 2 * padding).toInt()
         }
+
         setMeasuredDimension(width, height)
     }
 
@@ -125,6 +126,40 @@ class PaletteImageView(context: Context, attrs: AttributeSet?, defAttrStyle: Int
     }
 
 
+    /*
+
+     private var radius = 0f
+    private var srcId: Int = 0
+    private var padding = 0f
+    private var offsetX = 0f
+    private var offsetY = 0f
+    private var shadowRadius = 0f
+
+     */
+    override fun onSaveInstanceState(): Parcelable {
+        val save = super.onSaveInstanceState()
+        return Bundle().apply {
+            putParcelable("save", save)
+            putFloat("radius", radius)
+            putInt("srcId", srcId)
+            putFloat("padding", padding)
+            putFloat("offsetX", offsetX)
+            putFloat("offsetY", offsetY)
+            putFloat("shadowRadius", shadowRadius)
+        }
+    }
+
+    override fun onRestoreInstanceState(state: Parcelable?) {
+        val bundle = state as Bundle
+        setPaletteOffsetX(bundle.getFloat("offsetX"))
+        setPaletteOffsetY(bundle.getFloat("offsetY"))
+        setPalettePadding(bundle.getFloat("padding"))
+        setPaletteRadius(bundle.getFloat("radius"))
+        setPaletteShadowRadius(bundle.getFloat("shadowRadius"))
+        super.onRestoreInstanceState(bundle.getParcelable("save"))
+    }
+
+
     // ------------------ 对外提供的方法 ------------
 
     fun setShadowColor(color: Int) {
@@ -140,6 +175,12 @@ class PaletteImageView(context: Context, attrs: AttributeSet?, defAttrStyle: Int
 
     fun setBitmap(bitmap: Bitmap) {
         this.bitmap = bitmap
+        this.mainColor = null
+        requestLayout()
+    }
+
+    fun setSrcId(srcId:Int) {
+        this.srcId = srcId
         this.mainColor = null
         requestLayout()
     }
@@ -168,11 +209,12 @@ class PaletteImageView(context: Context, attrs: AttributeSet?, defAttrStyle: Int
      * 有活力的颜色
      */
     fun getVibrantColor(): IntArray? {
-        if (palette == null || palette?.vibrantSwatch == null) return null
+        val tPalette: Palette? = palette
+        if (tPalette == null || tPalette.vibrantSwatch == null) return null
         val array = IntArray(3)
-        array[0] = palette?.vibrantSwatch?.titleTextColor ?: 0
-        array[1] = palette?.vibrantSwatch?.bodyTextColor ?: 0
-        array[2] = palette?.vibrantSwatch?.rgb ?: 0
+        array[0] = tPalette.vibrantSwatch?.titleTextColor ?: 0
+        array[1] = tPalette.vibrantSwatch?.bodyTextColor ?: 0
+        array[2] = tPalette.vibrantSwatch?.rgb ?: 0
         return array
     }
 
