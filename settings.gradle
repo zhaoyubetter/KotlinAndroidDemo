@@ -1,1 +1,1 @@
-include ':app', ':common', ':home', ':widget', ':me', ':settings'
+include ':app', ':common', ':home', ':widget', ':me', ':settings', ':recordstring'
