@@ -11,4 +11,5 @@
     <string name="settings__tanxiangshan">檀香山</string>
     <string name="settings__date_time_demo_title">日期与时间示例</string>
     <string name="settings__date_time_show">时间显示</string>
+    <string name="settings__server_time">服务器时间</string>
 </resources>

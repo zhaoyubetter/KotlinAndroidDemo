@@ -9,6 +9,50 @@
     tools:context="test.com.settings.ui.DateTimeDemoActivity">
 
     <RelativeLayout
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="56dp">
+
+        <TextView
+            android:layout_centerVertical="true"
+            android:id="@+id/txt_server_time_key"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/settings__server_time" />
+
+        <TextView
+            android:textSize="12sp"
+            android:layout_centerVertical="true"
+            android:id="@+id/txt_server_time_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_toRightOf="@+id/txt_server_time_key"
+            android:text="12"
+            android:textColor="@color/colorAccent" />
+
+        <Button
+            android:textSize="12sp"
+            android:layout_marginLeft="28dp"
+            android:layout_centerVertical="true"
+            android:id="@+id/btn_date"
+            android:text="日期"
+            android:layout_toRightOf="@+id/txt_server_time_value"
+            android:layout_width="36dp"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:textSize="12sp"
+            android:layout_centerVertical="true"
+            android:id="@+id/btn_date_time"
+            android:text="时间"
+            android:layout_toRightOf="@+id/btn_date"
+            android:layout_width="36dp"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:gravity="center_vertical"
