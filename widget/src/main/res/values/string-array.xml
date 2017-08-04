@@ -3,6 +3,7 @@
     <!--  三国英雄人物 -->
     <string-array name="widget_person_sanguo">
         <item>widget_burenshi</item>
+        <item>@string/app_name</item>
+        <item>@string/widget_title</item>
     </string-array>
-
 </resources>

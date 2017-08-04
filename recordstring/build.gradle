@@ -8,6 +8,8 @@ version = '1.0.0' // 版本
 dependencies {
     compile gradleApi()
     compile localGroovy()
+
+    compile files('lib/jxl.jar')
 }
 
 repositories {

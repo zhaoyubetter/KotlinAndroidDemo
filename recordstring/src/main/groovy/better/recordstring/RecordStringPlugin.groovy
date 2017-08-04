@@ -1,27 +1,24 @@
 package better.recordstring
 
 import org.gradle.api.Plugin
-import org.gradle.api.Project;
+import org.gradle.api.Project
 
 /**
  * Created by cz on 2017/7/24.
  */
-
 class RecordStringPlugin implements Plugin<Project> {
 
     @Override
     void apply(Project project) {
-
-
         //获取配置
         project.extensions.create("record", RecordConfiguration.class)
-
         project.task("recordString") << {
             println "Start record string resource!"
             //配置信息
             println("FilterString:${project.record?.filterString}")
             println("ExtrasString:${project.record?.extrasString}")
             println("buildStringFile:${project.record.buildStringFile}")
+            println("Postfix:${project.record?.postfix}")
             //检测并合并所有activity
             def stringItems, stringArray
             (stringItems, stringArray) = parserStringValuesFile(project)
@@ -37,6 +34,7 @@ class RecordStringPlugin implements Plugin<Project> {
      * @return
      */
     def parserStringValuesFile(project) {
+        // build 文件路径
         def path = project.record.buildStringFile
         def valuesFile = path ? new File(path) : new File(project.buildDir, "/intermediates/res/merged/debug/values/values.xml")
         def root = new XmlParser().parse(valuesFile)
@@ -122,6 +120,7 @@ class RecordStringPlugin implements Plugin<Project> {
         //5:加入附加的条目
         project.record?.extrasString.each { newStringArray << [(it): null] }
 
+        // 6.生成xml
         def fileWriter = new FileWriter(configFile)
         def xml = new groovy.xml.MarkupBuilder(fileWriter)
         xml.resources([ct: new Date().toLocaleString()]) {
