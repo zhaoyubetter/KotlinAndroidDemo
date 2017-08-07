@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentTransaction
+import android.widget.AdapterView
 import better.common.CommonKey
 import better.common.base.BaseActivity
 import better.common.communicate.CommunicationTag
@@ -42,7 +43,6 @@ class MainActivity : BaseActivity() {
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
         supportActionBar?.title = "KotlinAndroidModuleDemo"
-
 
         // 回收后唤醒处理
         if (savedInstanceState != null) {

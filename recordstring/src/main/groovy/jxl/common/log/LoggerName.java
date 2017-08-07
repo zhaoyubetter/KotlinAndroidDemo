@@ -26,5 +26,5 @@ package jxl.common.log;
  */
 public class LoggerName
 {
-  public final static String NAME=SimpleLogger.class.getName();
+  public final static String NAME=jxl.common.log.SimpleLogger.class.getName();
 }

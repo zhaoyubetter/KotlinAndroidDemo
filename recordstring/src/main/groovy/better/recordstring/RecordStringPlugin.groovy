@@ -1,15 +1,22 @@
 package better.recordstring
 
+import better.recordstring.api.StringRecordAPI
+import better.recordstring.excel.StringRecord
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 
 /**
  * Created by cz on 2017/7/24.
+ * update by better
  */
 class RecordStringPlugin implements Plugin<Project> {
 
+    def StringRecordAPI api
+
     @Override
     void apply(Project project) {
+        api = new StringRecord()
+
         //获取配置
         project.extensions.create("record", RecordConfiguration.class)
         project.task("recordString") << {
@@ -19,13 +26,23 @@ class RecordStringPlugin implements Plugin<Project> {
             println("ExtrasString:${project.record?.extrasString}")
             println("buildStringFile:${project.record.buildStringFile}")
             println("Postfix:${project.record?.postfix}")
-            //检测并合并所有activity
-            def stringItems, stringArray
-            (stringItems, stringArray) = parserStringValuesFile(project)
-            updateStringItems(project, stringItems, stringArray)
+
+            // 执行处理
+            api.create(project.record, project.buildDir.absolutePath)
+
+            //检测并合并所有string，string-array
+//            def stringItems, stringArray
+//            (stringItems, stringArray) = parserStringValuesFile(project)
+
+            // 暂不更新
+            //updateStringItems(project, stringItems, stringArray)
             println "Record string success!"
         }
+
+        // 后执行
         project.tasks.findByName('build').finalizedBy(project.tasks.findByName('recordString'))
+        // 先执行
+        //project.tasks.findByName('recordString').dependsOn(project.tasks.findByName('build'))
     }
 
     /**
@@ -71,6 +88,13 @@ class RecordStringPlugin implements Plugin<Project> {
         [stringItems, arrayArrayItems]
     }
 
+    /**
+     * 根据老文件，来更新信息，暂时先不加
+     * @param project
+     * @param stringItems
+     * @param stringArray
+     * @return
+     */
     def updateStringItems(project, stringItems, stringArray) {
         //检测assets目录配置文件
         def assetsFile = new File(project.name, "/src/main/assets")

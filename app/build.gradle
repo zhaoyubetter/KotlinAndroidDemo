@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
-//apply plugin: 'record.string'
+apply plugin: 'record.string'
 
 android {
     compileSdkVersion 25
@@ -24,30 +24,32 @@ android {
     sourceSets { main { res.srcDirs = ['src/main/res', 'src/main/res/menu'] } }
 }
 
-//// 添加本地仓库依赖
-//buildscript {
-//    repositories {
-//        maven {
-//            url uri('../repo')
-//        }
-//    }
-//    dependencies {
-//        classpath 'better.recordstring:record-string:1.0.0'
-//    }
-//}
-//
-//record {
-//    //过滤字符串,配置在此处会被过滤不计
-//    filterString = ["app_name", "me__title"]
-//    //配置在此处,会被附加到xml内
-//    extrasString = ["aaaaaa", "bbbb"]
-//    //配置检测目录,如果用户动态设置了build目录,在此处更变
-//    // buildStringFile='xx'
-//}
+// 添加本地仓库依赖
+buildscript {
+    repositories {
+        maven {
+            url uri('../repo')
+        }
+    }
+    dependencies {
+        classpath 'better.recordstring:record-string:1.0.0'
+    }
+}
+
+record {
+    //过滤字符串,配置在此处会被过滤不计
+    filterString = ["app_name", "me__title"]
+    //配置在此处,会被附加到xml内
+    extrasString = ["aaaaaa", "bbbb"]
+    //配置检测目录,如果用户动态设置了build目录,在此处更变
+    // buildStringFile='xx'
+}
 
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
+
+    compile 'net.sourceforge.jexcelapi:jxl:2.6.10'
 
     if (isBuildModule.toBoolean()) {
         compile project(':common')

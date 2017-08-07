@@ -9,7 +9,9 @@ dependencies {
     compile gradleApi()
     compile localGroovy()
 
-    compile files('lib/jxl.jar')
+    //runtime files('lib/jxl.jar')
+    //compile files('lib/jxl.jar')
+//    compile 'net.sourceforge.jexcelapi:jxl:2.6.10'
 }
 
 repositories {
