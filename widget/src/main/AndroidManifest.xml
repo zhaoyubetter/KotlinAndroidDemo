@@ -10,6 +10,7 @@
         <activity android:name=".ui.PrivacyLockViewNormalUseActivity" />
         <activity android:name=".MainKotlinActivity" />
         <activity android:name=".ui.PaletteImageViewActivity"></activity>
+        <activity android:name=".ui.NestedMainActivity"/>
     </application>
 
 </manifest>
