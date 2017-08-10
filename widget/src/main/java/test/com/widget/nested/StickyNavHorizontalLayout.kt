@@ -1,6 +1,7 @@
 package test.com.widget.nested
 
 import android.content.Context
+import android.support.v4.view.ViewCompat
 import android.util.AttributeSet
 import android.util.Log
 import android.view.MotionEvent
@@ -31,6 +32,7 @@ class StickyNavHorizontalLayout(context: Context, attrs: AttributeSet?, defAttrS
     private var isDrag = false      // 是否拖拽
     private var velocityTracker: VelocityTracker? = null
     private var scroller: Scroller
+    private var topHide = false
 
     // --- 配置相关
     private var touchSlop: Int = 0
@@ -101,19 +103,47 @@ class StickyNavHorizontalLayout(context: Context, attrs: AttributeSet?, defAttrS
                 }
                 MotionEvent.ACTION_CANCEL -> {
                     isDrag = false
-                    if(!scroller.isFinished)  scroller.abortAnimation()
+                    if (!scroller.isFinished) scroller.abortAnimation()
                     releaseVelocity()
                 }
             }
         }
 
-        return true
-        //return super.onTouchEvent(event)
+        return super.onTouchEvent(event)
     }
 
+    /**
+     * 拦截
+     */
     override fun onInterceptTouchEvent(ev: MotionEvent?): Boolean {
-        return true
-        //return super.onInterceptTouchEvent(ev)
+        ev?.let {
+            var x = ev.x
+            when (ev.action) {
+                MotionEvent.ACTION_DOWN -> {
+                    lastX = x
+                }
+                MotionEvent.ACTION_MOVE -> {
+                    scroller.let { if (!it.isFinished) return true }  // 惯性还未结束，拦截事件
+
+                    val dx = x - lastX
+                    if(Math.abs(dx) > touchSlop) {
+                        isDrag = true
+                        // topView可见 || (topView不可见 && 右拉到头 && 右拉)
+                        if (!topHide || (topHide && !ViewCompat.canScrollHorizontally(scrollView, -1) && dx > 0)) {
+                            initVelocityTracker()
+                            velocityTracker?.addMovement(ev)
+                            return true
+                        }
+                    }
+                }
+
+                MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
+                    isDrag = false
+                    releaseVelocity()
+                }
+            }
+        }
+        return super.onInterceptTouchEvent(ev)
     }
 
     override fun computeScroll() {
@@ -124,8 +154,15 @@ class StickyNavHorizontalLayout(context: Context, attrs: AttributeSet?, defAttrS
         }
     }
 
+    override fun scrollTo(x: Int, y: Int) {
+        var temp = x
+        if (x < 0) temp = 0
+        if (x > topViewWidth) temp = topViewWidth
+        super.scrollTo(temp, y)
+        topHide = topViewWidth == scrollX
+    }
+
     private inline fun flingX(velocityX: Float) {
-        // int startX, int startY, int velocityX, int velocityY, int minX, int maxX, int minY, int maxY
         scroller.fling(scrollX, 0, velocityX.toInt(), 0, 0, topViewWidth, 0, 0)
         invalidate()
     }
