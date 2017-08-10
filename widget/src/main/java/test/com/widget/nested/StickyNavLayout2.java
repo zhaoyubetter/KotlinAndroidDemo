@@ -122,7 +122,7 @@ public class StickyNavLayout2 extends LinearLayout {
 
 					RecyclerView rv = (RecyclerView) mInnerScrollView;
 
-					if (!isInControl && android.support.v4.view.ViewCompat.canScrollVertically(rv, -1) && isTopHidden
+					if (!isInControl && !android.support.v4.view.ViewCompat.canScrollVertically(rv, -1) && isTopHidden
 							&& dy > 0) {
 						isInControl = true;
 						ev.setAction(MotionEvent.ACTION_CANCEL);
@@ -239,7 +239,7 @@ public class StickyNavLayout2 extends LinearLayout {
 				if (mDragging) {
 					scrollBy(0, (int) -dy);
 					// 如果topView隐藏，且上滑动时，则改变当前事件为ACTION_DOWN
-					if (getScrollY() == mTopViewHeight && dy < 0) {
+					if (getScrollY() == mTopViewHeight) {
 						event.setAction(MotionEvent.ACTION_DOWN);      // 发送点击事件
 						dispatchTouchEvent(event);
 						isInControl = false;
