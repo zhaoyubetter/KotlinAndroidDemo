@@ -1,0 +1,85 @@
+<test.com.widget.nested.StickyNavHorizontalLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:orientation="horizontal">
+
+    <RelativeLayout
+        android:id="@+id/id_stickynavlayout_topview"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:background="#4400ff00">
+
+        <TextView
+            android:layout_width="68dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="嵌套滑动"
+            android:textSize="30sp"
+            android:textStyle="bold"/>
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/id_stickynavlayout_indicator"
+        android:layout_width="36dp"
+        android:layout_height="match_parent"
+        android:background="#ffffffff"
+        android:gravity="center"
+        android:text="悬浮头"/>
+
+
+    <ScrollView
+        android:id="@+id/id_stickynavlayout_scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:divider="?android:attr/listDivider"
+            android:showDividers="middle"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:text="text1"/>
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:text="text2"/>
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:text="text3"/>
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:text="text4"/>
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:text="text5"/>
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:text="text61"/>
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:text="77"/>
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:text="888"/>
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:text="888"/>
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:text="9999"/>
+        </LinearLayout>
+    </ScrollView>
+
+</test.com.widget.nested.StickyNavHorizontalLayout>

@@ -13,11 +13,12 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.PrivacyLockViewDialogUseActivity"/>
-        <activity android:name=".ui.PrivacyLockViewNormalUseActivity"/>
-        <activity android:name=".ui.PaletteImageViewActivity"/>
-        <activity android:name=".ui.NestedMainActivity"/>
-        <activity android:name=".ui.NestedMain2Activity"/>
+        <activity android:name=".ui.PrivacyLockViewDialogUseActivity" />
+        <activity android:name=".ui.PrivacyLockViewNormalUseActivity" />
+        <activity android:name=".ui.PaletteImageViewActivity" />
+        <activity android:name=".ui.NestedMainActivity" />
+        <activity android:name=".ui.NestedMain2Activity" />
+        <activity android:name=".ui.NestedHorizonalActivity" />
 
 
     </application>

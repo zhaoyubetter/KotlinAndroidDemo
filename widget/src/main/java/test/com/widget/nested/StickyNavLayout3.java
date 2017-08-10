@@ -20,7 +20,7 @@ import test.com.widget.R;
 
 
 public class StickyNavLayout3 extends LinearLayout implements NestedScrollingParent {
-    private static final String TAG = "StickyNavLayout";
+    private static final String TAG = "StickyNavVerticalLayout";
 
     @Override
     public boolean onStartNestedScroll(View child, View target, int nestedScrollAxes) {

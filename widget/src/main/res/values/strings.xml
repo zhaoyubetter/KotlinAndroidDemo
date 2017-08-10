@@ -31,7 +31,9 @@
     <string name="widget__y_offset">Y偏移量</string>
     <string name="widget__next">下一个</string>
 
-    <string name="widget_nestted_title">NestedScrolling</string>
+    <string name="widget_nestted_title">嵌套滑动</string>
+    <string name="widget_nestted_vertical">垂直嵌套滑动</string>
+    <string name="widget_nestted_horiz">水平嵌套滑动</string>
 
 
 </resources>

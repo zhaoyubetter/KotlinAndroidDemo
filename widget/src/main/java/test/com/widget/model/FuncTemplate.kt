@@ -66,25 +66,24 @@ class FuncTemplate private constructor(ctx: Context) {
                 clazz = PaletteImageViewActivity::class.java
             }
 
+            // 嵌套滚动
             item {
-                item {
-                    id = 2
-                    title = ctx.resources.getString(R.string.widget_privacy_title)
-                    desc = ctx.resources.getString(R.string.widget_privacy_desc)
-                }
+                id = 2
+                title = ctx.resources.getString(R.string.widget_nestted_title)
+                desc = ctx.resources.getString(R.string.widget_nestted_title)
 
                 item {
                     pid = 2
-                    title = ctx.resources.getString(R.string.widget_nestted_title)
-                    desc = ctx.resources.getString(R.string.widget_nestted_title)
-                    clazz = NestedMainActivity::class.java
-                }
-
-                item {
-                    pid = 2
-                    title = ctx.resources.getString(R.string.widget_nestted_title)
-                    desc = ctx.resources.getString(R.string.widget_nestted_title)
+                    title = ctx.resources.getString(R.string.widget_nestted_vertical)
+                    desc = ctx.resources.getString(R.string.widget_nestted_vertical)
                     clazz = NestedMain2Activity::class.java
+                }
+
+                item {
+                    pid = 2
+                    title = ctx.resources.getString(R.string.widget_nestted_horiz)
+                    desc = ctx.resources.getString(R.string.widget_nestted_horiz)
+                    clazz = NestedHorizonalActivity::class.java
                 }
             }
         }

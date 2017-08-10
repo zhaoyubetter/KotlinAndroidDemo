@@ -1,6 +1,7 @@
 package test.com.widget.nested
 
 import android.content.Context
+import android.support.v4.view.ViewCompat
 import android.util.AttributeSet
 import android.util.Log
 import android.view.MotionEvent
@@ -15,7 +16,9 @@ import test.com.widget.R
  * 嵌套滑动，参考zhy
  * Created by zhaoyu on 2017/8/9.
  */
-class StickyNavLayout(context: Context, attrs: AttributeSet?) : LinearLayout(context, attrs) {
+class StickyNavVerticalLayout(context: Context, attrs: AttributeSet? , defAttrStyle: Int) : LinearLayout(context, attrs, defAttrStyle) {
+    constructor(context: Context) : this(context, null)
+    constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
 
     // --- 内部view
     private var top: View? = null
@@ -31,7 +34,7 @@ class StickyNavLayout(context: Context, attrs: AttributeSet?) : LinearLayout(con
     private var scroller: Scroller? = null
     private var maxFlingVelocity: Int? = 0
     private var minFlingVelocity: Int? = 0
-
+    private var isInControl = false
 
     private var lastY = 0f
 
@@ -41,6 +44,7 @@ class StickyNavLayout(context: Context, attrs: AttributeSet?) : LinearLayout(con
         scroller = Scroller(context)
         maxFlingVelocity = config.scaledMaximumFlingVelocity
         minFlingVelocity = config.scaledMinimumFlingVelocity
+        orientation = VERTICAL
     }
 
 
@@ -56,7 +60,7 @@ class StickyNavLayout(context: Context, attrs: AttributeSet?) : LinearLayout(con
         // 设置 scrollView的高
         scrollView?.let {
             val lp = it.layoutParams
-            lp.height = this@StickyNavLayout.measuredHeight.minus(nav?.height ?: 0)
+            lp.height = this@StickyNavVerticalLayout.measuredHeight.minus(nav?.height ?: 0)
         }
     }
 
@@ -64,53 +68,6 @@ class StickyNavLayout(context: Context, attrs: AttributeSet?) : LinearLayout(con
         super.onSizeChanged(w, h, oldw, oldh)
         topHeight = top?.measuredHeight
     }
-
-    /**
-     * 拦
-
-    override fun onInterceptTouchEvent(ev: MotionEvent?): Boolean {
-        ev?.let {
-            when (ev.action) {
-                MotionEvent.ACTION_DOWN -> {
-                    lastY = ev.y
-                }
-
-                MotionEvent.ACTION_MOVE -> {
-                    scroller?.let {
-                        // 惯性还未结束，拦截事件
-                        if (!it.isFinished) return true
-                    }
-
-
-                    val dy = ev.y - lastY
-                    if (Math.abs(dy) > touchSlop) {
-                        isDrag = true
-
-                        val tempView = scrollView
-                        if (tempView is ListView) {     // listview
-                            val firstView = tempView.getChildAt(tempView.firstVisiblePosition)
-                            firstView?.let {
-                                // top不隐藏 或者 (top 隐藏 && listview 在顶部 && 下拉) firstView.getTop == 0
-                                if (!topHide || (topHide && !ViewCompat.canScrollVertically(tempView, -1) && dy > 0)) {
-                                    initVelocityTrackerIfNotExists()
-                                    velocityTracker?.addMovement(ev)
-                                    lastY = ev.y
-                                    return true
-                                }
-                            }
-                        }
-                    }
-                }
-
-                MotionEvent.ACTION_CANCEL, MotionEvent.ACTION_UP -> {
-                    releaseVelocity()
-                    isDrag = false
-                }
-            }
-        }
-        return super.onInterceptTouchEvent(ev)
-    }*/
-
 
     override fun scrollTo(x: Int, y: Int) {
         var tmp = y
@@ -157,10 +114,8 @@ class StickyNavLayout(context: Context, attrs: AttributeSet?) : LinearLayout(con
                         event.action = MotionEvent.ACTION_DOWN
                         dispatchTouchEvent(event)
                     }
-
                     lastY = y
                 }
-
                 MotionEvent.ACTION_CANCEL -> {
                     isDrag = false
                     releaseVelocity()
@@ -176,14 +131,74 @@ class StickyNavLayout(context: Context, attrs: AttributeSet?) : LinearLayout(con
                     }
                     releaseVelocity()
                 }
-
                 else -> {
                 }
             }
         }
-
         return super.onTouchEvent(event)
     }
+
+    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
+        ev?.let {
+            when (it.action) {
+                MotionEvent.ACTION_DOWN -> lastY = y
+                MotionEvent.ACTION_MOVE -> {
+                    val dy = it.y - lastY
+                    // 头不可见，继续下拉，重发事件
+                    if (topHide && !ViewCompat.canScrollVertically(scrollView, -1) && dy > 0 && !isInControl) {
+                        isInControl = true
+                        ev.action = MotionEvent.ACTION_CANCEL
+                        val ev2 = MotionEvent.obtain(ev)
+                        dispatchTouchEvent(ev)
+                        ev2.action = MotionEvent.ACTION_DOWN
+                        return dispatchTouchEvent(ev2)
+                    }
+                }
+            }
+        }
+        return super.dispatchTouchEvent(ev)
+    }
+
+    /**
+     * 拦
+     */
+    override fun onInterceptTouchEvent(ev: MotionEvent?): Boolean {
+        ev?.let {
+            when (ev.action) {
+                MotionEvent.ACTION_DOWN -> {
+                    lastY = ev.y
+                }
+
+                MotionEvent.ACTION_MOVE -> {
+                    scroller?.let {
+                        // 惯性还未结束，拦截事件
+                        if (!it.isFinished) return true
+                    }
+
+                    val dy = ev.y - lastY
+                    if (Math.abs(dy) > touchSlop) {
+                        isDrag = true
+                        scrollView?.let {
+                                // top不隐藏 或者 (top 隐藏 && 下拉) firstView.getTop == 0
+                                if (!topHide || (topHide && !ViewCompat.canScrollVertically(scrollView, -1) && dy > 0)) {
+                                    initVelocityTrackerIfNotExists()
+                                    velocityTracker?.addMovement(ev)
+                                    lastY = ev.y
+                                    return true
+                                }
+                        }
+                    }
+                }
+
+                MotionEvent.ACTION_CANCEL, MotionEvent.ACTION_UP -> {
+                    releaseVelocity()
+                    isDrag = false
+                }
+            }
+        }
+        return super.onInterceptTouchEvent(ev)
+    }
+
 
     override fun computeScroll() {
         scroller?.let {
