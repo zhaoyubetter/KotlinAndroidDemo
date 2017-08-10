@@ -1,0 +1,91 @@
+<resources ct='2017-7-27 22:35:02'>
+  <string name='abc_font_family_caption_material' cn='sans-serif'></string>
+  <string name='abc_font_family_display_1_material' cn='sans-serif'></string>
+  <string name='common__time_fmt_24' cn='HH:ss'></string>
+  <string name='app_menu_home' cn='首页'></string>
+  <string name='widget_subtitle' cn='使用Kotlin来自定义控件'></string>
+  <string name='search_menu_title' cn='Search'></string>
+  <string name='abc_toolbar_collapse_description' cn='Collapse'></string>
+  <string name='app_menu_widget' cn='控件'></string>
+  <string name='home__subtitle' cn='这里是首页'></string>
+  <string name='settings_title' cn='设置'></string>
+  <string name='abc_font_family_display_4_material' cn='sans-serif-light'></string>
+  <string name='abc_font_family_headline_material' cn='sans-serif'></string>
+  <string name='abc_font_family_menu_material' cn='sans-serif'></string>
+  <string name='abc_capital_off' cn='OFF'></string>
+  <string name='widget_privacy_title_base_use' cn='基本使用示例'></string>
+  <string name='abc_action_bar_up_description' cn='Navigate up'></string>
+  <string name='abc_capital_on' cn='ON'></string>
+  <string name='settings__date_time_demo_title' cn='日期与时间示例'></string>
+  <string name='abc_search_hint' cn='Search…'></string>
+  <string name='settings__sys_time' cn='系统时间'></string>
+  <string name='widget_privacy_title_dialog_use' cn='嵌入到Dialog中'></string>
+  <string name='abc_font_family_button_material' cn='sans-serif-medium'></string>
+  <string name='widget_palette_view_title' cn='带有阴影的ImageView'></string>
+  <string name='abc_searchview_description_clear' cn='Clear query'></string>
+  <string name='settings__language' cn='语言设置'></string>
+  <string name='settings__date_time_show' cn='时间显示'></string>
+  <string name='me__subtitle' cn='我的空间'></string>
+  <string name='settings__tanxiangshan' cn='檀香山'></string>
+  <string name='widget_space' cn='间隔'></string>
+  <string name='abc_font_family_title_material' cn='sans-serif-medium'></string>
+  <string name='common__time_fmt_12' cn='ahh:mm'></string>
+  <string name='abc_action_bar_home_description_format' cn='%1$s, %2$s'></string>
+  <string name='widget__shadow_radius' cn='阴影半径'></string>
+  <string name='widget_show_encry' cn='显示密文'></string>
+  <string name='abc_action_bar_home_description' cn='Navigate home'></string>
+  <string name='widget__y_offset' cn='Y偏移量'></string>
+  <string name='password_toggle_content_description' cn='Toggle password visibility'></string>
+  <string name='settings__multi_language' cn='多语言'></string>
+  <string name='widget_palette_view_desc' cn='带有阴影的ImageView'></string>
+  <string name='app_menu_me' cn='我'></string>
+  <string name='home_module' cn='我是主页'></string>
+  <string name='widget_privacy_desc' cn='仿微信密码、验证码输入控件'></string>
+  <string name='settings__dongjing_time' cn='东京时间'></string>
+  <string name='settings__standard_time' cn='标准时间'></string>
+  <string name='widget_user_input' cn='输入内容：'></string>
+  <string name='widget_privacy_message' cn='请输入验证码，用以确定身份'></string>
+  <string name='abc_searchview_description_query' cn='Search query'></string>
+  <string name='abc_searchview_description_submit' cn='Submit query'></string>
+  <string name='abc_action_bar_home_subtitle_description_format' cn='%1$s, %2$s, %3$s'></string>
+  <string name='abc_activitychooserview_choose_application' cn='Choose an app'></string>
+  <string name='abc_action_menu_overflow_description' cn='More options'></string>
+  <string name='abc_shareactionprovider_share_with' cn='Share with'></string>
+  <string name='abc_font_family_subhead_material' cn='sans-serif'></string>
+  <string name='abc_shareactionprovider_share_with_application' cn='Share with %s'></string>
+  <string name='widget_input_correct' cn='输入正确'></string>
+  <string name='abc_searchview_description_search' cn='Search'></string>
+  <string name='widget_count' cn='个数'></string>
+  <string name='widget_privacy_title_dialog_use_desc' cn='嵌入到Dialog中，类似于支付宝、微信输入密码'></string>
+  <string name='settings__beijing_time' cn='北京时间'></string>
+  <string name='widget__next' cn='下一个'></string>
+  <string name='settings_subtitle' cn='设置功能'></string>
+  <string name='abc_font_family_display_2_material' cn='sans-serif'></string>
+  <string name='widget_password_error' cn='密码输入错误，密码为: %s'></string>
+  <string name='status_bar_notification_info_overflow' cn='999+'></string>
+  <string name='widget__image_radius' cn='图片半径'></string>
+  <string name='widget_password_correct' cn='密码正确'></string>
+  <string name='common__date_fmt_short' cn='yyyy-MM-dd'></string>
+  <string name='home__title' cn='首页'></string>
+  <string name='widget__x_offset' cn='X偏移量'></string>
+  <string name='widget_title' cn='控件'></string>
+  <string name='abc_searchview_description_voice' cn='Voice search'></string>
+  <string name='abc_activity_chooser_view_see_all' cn='See all'></string>
+  <string name='abc_font_family_body_2_material' cn='sans-serif-medium'></string>
+  <string name='abc_action_mode_done' cn='Done'></string>
+  <string name='app_menu_settings' cn='设置'></string>
+  <string name='widget_privacy_title' cn='验证码控件示例'></string>
+  <string name='abc_font_family_body_1_material' cn='sans-serif'></string>
+  <string name='abc_font_family_display_3_material' cn='sans-serif'></string>
+  <string name='widget_input_code' cn='输入验证码'></string>
+  <string name='common__datetime_fmt_12' cn='yyyy-MM-dd ahh:mm'></string>
+  <string name='widget_normal_use' cn='基本使用'></string>
+  <string name='widget_privacy_title_base_use_desc' cn='仿微信密码、验证码输入控件'></string>
+  <string name='aaaaaa' cn=''></string>
+  <string name='bbbb' cn=''></string>
+  <string-array name='widget_person_sanguo'>
+    <item>widget_burenshi</item>
+  </string-array>
+  <string-array name='aaaaaa' />
+  <string-array name='bbbb' />
+</resources>

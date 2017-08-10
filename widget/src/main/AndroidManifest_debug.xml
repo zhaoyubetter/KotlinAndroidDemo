@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
 
     package="test.com.widget">
@@ -6,6 +7,13 @@
         android:allowBackup="true"
         android:label="@string/app_name"
         android:supportsRtl="true">
+
+        <activity android:name=".ui.PrivacyLockViewDialogUseActivity"/>
+        <activity android:name=".ui.PrivacyLockViewNormalUseActivity"/>
+        <activity android:name=".MainKotlinActivity"/>
+        <activity android:name=".ui.PaletteImageViewActivity"/>
+        <activity android:name=".ui.NestedMainActivity"/>
+        <activity android:name=".ui.NestedMain2Activity">
 
     </application>
 

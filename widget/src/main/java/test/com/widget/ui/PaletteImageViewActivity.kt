@@ -11,6 +11,7 @@ import test.com.widget.widget.PaletteImageView
 import test.com.widget.widget.PaletteImageView.OnParseColorListener
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
+import android.support.v4.widget.SwipeRefreshLayout
 import org.jetbrains.anko.sdk25.coroutines.onClick
 
 
@@ -74,6 +75,7 @@ class PaletteImageViewActivity : ToolbarActivity(), SeekBar.OnSeekBarChangeListe
                 R.id.seekbar_y_offset -> palette.setPaletteOffsetY(progress.toFloat())
             }
         }
+
     }
 
     override fun onStartTrackingTouch(seekBar: SeekBar?) {
