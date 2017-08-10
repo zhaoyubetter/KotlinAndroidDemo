@@ -33,6 +33,7 @@ class StickyNavHorizontalLayout(context: Context, attrs: AttributeSet?, defAttrS
     private var velocityTracker: VelocityTracker? = null
     private var scroller: Scroller
     private var topHide = false
+    private var isInControl = false
 
     // --- 配置相关
     private var touchSlop: Int = 0
@@ -88,6 +89,13 @@ class StickyNavHorizontalLayout(context: Context, attrs: AttributeSet?, defAttrS
                     if (isDrag) {
                         scrollBy(-dx.toInt(), 0)
                     }
+
+                    // 如果滑到顶了，将事件转换成点击事情，发送
+                    if (scrollX == topViewWidth && dx < 0) {        // dx<0可以不要
+                        event.action = MotionEvent.ACTION_DOWN
+                        dispatchTouchEvent(event)
+                        isInControl = false
+                    }
                     lastX = x
                 }
                 MotionEvent.ACTION_UP -> {
@@ -112,6 +120,23 @@ class StickyNavHorizontalLayout(context: Context, attrs: AttributeSet?, defAttrS
     }
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
+        ev?.let {
+            when (ev.action) {
+                MotionEvent.ACTION_DOWN -> lastX = it.x
+                MotionEvent.ACTION_MOVE -> {
+                    val dx = it.x - lastX
+                    // 头不可见，继续右拉，重发事件 (实现嵌套滑动)
+                    if (topHide && !ViewCompat.canScrollHorizontally(scrollView, -1) && dx > 0 && !isInControl) {
+                        isInControl = true
+                        ev.action = MotionEvent.ACTION_CANCEL
+                        val ev2 = MotionEvent.obtain(ev)
+                        ev2.action = MotionEvent.ACTION_DOWN
+                        dispatchTouchEvent(ev)
+                        return dispatchTouchEvent(ev2)
+                    }
+                }
+            }
+        }
 
         return super.dispatchTouchEvent(ev)
     }
