@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import test.com.widget.R
 
-class NestedMain2Activity : AppCompatActivity() {
+class NestedVerticalActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -12,7 +12,7 @@ class NestedMain2Activity : AppCompatActivity() {
 
         val list = mutableListOf<String>()
         (0..100).forEach { list.add("item $it") }
-//        id_stickynavlayout_scrollview.adapter = ArrayAdapter(this@NestedMain2Activity, android.R.layout.simple_list_item_1,
+//        id_stickynavlayout_scrollview.adapter = ArrayAdapter(this@NestedVerticalActivity, android.R.layout.simple_list_item_1,
 //                list.toTypedArray())
     }
 }

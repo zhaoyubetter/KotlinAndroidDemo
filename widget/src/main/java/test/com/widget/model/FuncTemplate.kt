@@ -74,9 +74,16 @@ class FuncTemplate private constructor(ctx: Context) {
 
                 item {
                     pid = 2
+                    title = ctx.resources.getString(R.string.widget_nestted_title_zhy)
+                    desc = ctx.resources.getString(R.string.widget_nestted_title_zhy)
+                    clazz = Nested_zhy_Activity::class.java
+                }
+
+                item {
+                    pid = 2
                     title = ctx.resources.getString(R.string.widget_nestted_vertical)
                     desc = ctx.resources.getString(R.string.widget_nestted_vertical)
-                    clazz = NestedMain2Activity::class.java
+                    clazz = NestedVerticalActivity::class.java
                 }
 
                 item {

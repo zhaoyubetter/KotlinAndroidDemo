@@ -10,7 +10,7 @@
         android:background="#4400ff00">
 
         <TextView
-            android:layout_width="68dp"
+            android:layout_width="156dp"
             android:layout_height="match_parent"
             android:gravity="center"
             android:text="嵌套滑动"
@@ -27,7 +27,7 @@
         android:text="悬浮头"/>
 
 
-    <ScrollView
+    <HorizontalScrollView
         android:id="@+id/id_stickynavlayout_scrollview"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -41,14 +41,17 @@
 
             <TextView
                 android:layout_width="100dp"
+                android:gravity="center"
                 android:layout_height="match_parent"
                 android:text="text1"/>
             <TextView
                 android:layout_width="100dp"
+                android:gravity="center"
                 android:layout_height="match_parent"
                 android:text="text2"/>
             <TextView
                 android:layout_width="100dp"
+                android:gravity="center"
                 android:layout_height="match_parent"
                 android:text="text3"/>
             <TextView
@@ -80,6 +83,6 @@
                 android:layout_height="match_parent"
                 android:text="9999"/>
         </LinearLayout>
-    </ScrollView>
+    </HorizontalScrollView>
 
 </test.com.widget.nested.StickyNavHorizontalLayout>

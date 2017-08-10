@@ -12,7 +12,7 @@ import test.com.widget.nested.SimpleViewPagerIndicator;
 import test.com.widget.nested.TabFragment;
 
 
-public class NestedMainActivity extends FragmentActivity {
+public class Nested_zhy_Activity extends FragmentActivity {
     private String[] mTitles = new String[]{"简介", "评价", "相关"};
     private SimpleViewPagerIndicator mIndicator;
     private ViewPager mViewPager;
