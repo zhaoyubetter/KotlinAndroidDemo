@@ -12,4 +12,5 @@ gradlew.bat
 .idea
 gradle
 gradle.properties
-
+repo
+build
