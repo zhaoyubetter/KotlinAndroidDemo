@@ -94,7 +94,6 @@ class StickyNavHorizontalLayout(context: Context, attrs: AttributeSet?, defAttrS
                     isDrag = false
                     velocityTracker?.let {
                         it.computeCurrentVelocity(1000, maxVelocity.toFloat())
-                        Log.e("better", "min: ${minVelocity}, current:${it.xVelocity}")
                         if (Math.abs(it.xVelocity) > minVelocity) {  // 加速度
                             flingX(-it.xVelocity)
                         }
@@ -112,6 +111,11 @@ class StickyNavHorizontalLayout(context: Context, attrs: AttributeSet?, defAttrS
         return super.onTouchEvent(event)
     }
 
+    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
+
+        return super.dispatchTouchEvent(ev)
+    }
+
     /**
      * 拦截
      */
@@ -126,12 +130,13 @@ class StickyNavHorizontalLayout(context: Context, attrs: AttributeSet?, defAttrS
                     scroller.let { if (!it.isFinished) return true }  // 惯性还未结束，拦截事件
 
                     val dx = x - lastX
-                    if(Math.abs(dx) > touchSlop) {
+                    if (Math.abs(dx) > touchSlop) {
                         isDrag = true
                         // topView可见 || (topView不可见 && 右拉到头 && 右拉)
                         if (!topHide || (topHide && !ViewCompat.canScrollHorizontally(scrollView, -1) && dx > 0)) {
                             initVelocityTracker()
                             velocityTracker?.addMovement(ev)
+                            lastX = x       // 拦截后赋值
                             return true
                         }
                     }
