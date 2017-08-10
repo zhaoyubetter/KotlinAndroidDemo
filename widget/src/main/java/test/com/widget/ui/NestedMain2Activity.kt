@@ -22,9 +22,9 @@ class NestedMain2Activity : AppCompatActivity() {
                 list.toTypedArray())
 
 
-        val firstView = id_stickynavlayout_scrollview.getChildAt(id_stickynavlayout_scrollview.firstVisiblePosition)
         id_stickynavlayout_scrollview.setOnScrollListener(object: AbsListView.OnScrollListener {
             override fun onScroll(view: AbsListView?, firstVisibleItem: Int, visibleItemCount: Int, totalItemCount: Int) {
+                val firstView = id_stickynavlayout_scrollview.getChildAt(0)
                 firstView?.let {
                     Log.e("firstTop", "top: ---> ${firstView.top}")
                 }
