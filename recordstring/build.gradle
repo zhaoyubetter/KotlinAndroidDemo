@@ -1,9 +1,10 @@
 apply plugin: 'groovy'
 apply plugin: 'maven'
+apply from: '../bintray.gradle'
 
 
 group = 'better.recordstring'  // 组名
-version = '1.0.0' // 版本
+version = '1.0.1' // 版本
 
 dependencies {
     compile gradleApi()
@@ -11,13 +12,14 @@ dependencies {
 
     //runtime files('lib/jxl.jar')
     //compile files('lib/jxl.jar')
-//    compile 'net.sourceforge.jexcelapi:jxl:2.6.10'
+   compile 'net.sourceforge.jexcelapi:jxl:2.6.10'
 }
 
 repositories {
     mavenCentral()
 }
 
+/* // 上传到本地代码库
 uploadArchives{
     repositories{
         mavenDeployer{
@@ -27,4 +29,4 @@ uploadArchives{
             pom.version = version // 版本号
         }
     }
-}
+}*/

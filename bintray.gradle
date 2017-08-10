@@ -4,7 +4,7 @@ apply plugin: 'maven-publish'
 
 def baseUrl = 'https://github.com/zhaoyubetter'
 def siteUrl = baseUrl
-def gitUrl = "${baseUrl}/KotlinDemo"
+def gitUrl = "${baseUrl}/KotlinAndroidDemo"
 def issueUrl = "${baseUrl}/issues"
 
 

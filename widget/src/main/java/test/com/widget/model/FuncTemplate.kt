@@ -3,10 +3,7 @@ package test.com.widget.model
 import android.app.Activity
 import android.content.Context
 import test.com.widget.R
-import test.com.widget.ui.NestedMainActivity
-import test.com.widget.ui.PaletteImageViewActivity
-import test.com.widget.ui.PrivacyLockViewDialogUseActivity
-import test.com.widget.ui.PrivacyLockViewNormalUseActivity
+import test.com.widget.ui.*
 
 /**
  * Created by zhaoyu1 on 2017/7/4.
@@ -70,10 +67,25 @@ class FuncTemplate private constructor(ctx: Context) {
             }
 
             item {
-                id = 3
-                title = ctx.resources.getString(R.string.widget_nestted_title)
-                desc = ctx.resources.getString(R.string.widget_nestted_title)
-                clazz = NestedMainActivity::class.java
+                item {
+                    id = 2
+                    title = ctx.resources.getString(R.string.widget_privacy_title)
+                    desc = ctx.resources.getString(R.string.widget_privacy_desc)
+                }
+
+                item {
+                    pid = 2
+                    title = ctx.resources.getString(R.string.widget_nestted_title)
+                    desc = ctx.resources.getString(R.string.widget_nestted_title)
+                    clazz = NestedMainActivity::class.java
+                }
+
+                item {
+                    pid = 2
+                    title = ctx.resources.getString(R.string.widget_nestted_title)
+                    desc = ctx.resources.getString(R.string.widget_nestted_title)
+                    clazz = NestedMain2Activity::class.java
+                }
             }
         }
     }

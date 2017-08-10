@@ -19,7 +19,7 @@ import android.widget.OverScroller;
 import test.com.widget.R;
 
 
-public class StickyNavLayout extends LinearLayout implements NestedScrollingParent {
+public class StickyNavLayout3 extends LinearLayout implements NestedScrollingParent {
     private static final String TAG = "StickyNavLayout";
 
     @Override
@@ -164,7 +164,7 @@ public class StickyNavLayout extends LinearLayout implements NestedScrollingPare
     private float mLastY;
     private boolean mDragging;
 
-    public StickyNavLayout(Context context, AttributeSet attrs) {
+    public StickyNavLayout3(Context context, AttributeSet attrs) {
         super(context, attrs);
         setOrientation(LinearLayout.VERTICAL);
 
