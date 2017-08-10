@@ -16,9 +16,7 @@ import test.com.widget.R
  * 嵌套滑动，参考zhy
  * Created by zhaoyu on 2017/8/9.
  */
-class StickyNavVerticalLayout(context: Context, attrs: AttributeSet? , defAttrStyle: Int) : LinearLayout(context, attrs, defAttrStyle) {
-    constructor(context: Context) : this(context, null)
-    constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
+class StickyNavVerticalLayout(context: Context, attrs: AttributeSet?) : LinearLayout(context, attrs) {
 
     // --- 内部view
     private var top: View? = null
@@ -113,6 +111,7 @@ class StickyNavVerticalLayout(context: Context, attrs: AttributeSet? , defAttrSt
                     if (scrollY == topHeight && dy < 0) {
                         event.action = MotionEvent.ACTION_DOWN
                         dispatchTouchEvent(event)
+                        isInControl = false
                     }
                     lastY = y
                 }
