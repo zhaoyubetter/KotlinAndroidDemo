@@ -90,7 +90,7 @@ class StickyNavHorizontalLayout(context: Context, attrs: AttributeSet?, defAttrS
                     }
 
                     // 如果滑到顶了，将事件转换成点击事情，发送
-                    if (scrollX == topViewWidth && dx < 0) {        // dx<0可以不要
+                    if (scrollX == topViewWidth) {        // dx<0可以不要
                         event.action = MotionEvent.ACTION_DOWN
                         dispatchTouchEvent(event)
                         isInControl = false

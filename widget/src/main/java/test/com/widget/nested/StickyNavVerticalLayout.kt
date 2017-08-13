@@ -108,7 +108,7 @@ class StickyNavVerticalLayout(context: Context, attrs: AttributeSet?) : LinearLa
                         scrollBy(0, -dy.toInt())
                     }
                     // 如果滑到顶了，将事件转换成点击事情，发送
-                    if (scrollY == topHeight && dy < 0) {
+                    if (scrollY == topHeight) {
                         event.action = MotionEvent.ACTION_DOWN
                         dispatchTouchEvent(event)
                         isInControl = false

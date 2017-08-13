@@ -1,7 +1,9 @@
 package test.com.widget.nested
 
 import android.content.Context
+import android.support.v4.view.ViewCompat
 import android.util.AttributeSet
+import android.util.Log
 import android.view.MotionEvent
 import android.view.VelocityTracker
 import android.view.View
@@ -29,6 +31,9 @@ class StickyNavVerticalLayout2(context: Context, attrs: AttributeSet?, defAttrSt
     private var touchSlop: Int = 0
     private var maxFlingVelocity: Int = 0
     private var minFlingVelocity: Int = 0
+
+    private var topHide = false
+    private var isInControl = false
 
 
     init {
@@ -64,6 +69,10 @@ class StickyNavVerticalLayout2(context: Context, attrs: AttributeSet?, defAttrSt
             when (event.action) {
                 MotionEvent.ACTION_DOWN -> {
                     lastY = y.toInt()
+                    if(!scroller.isFinished) {
+                        scroller.abortAnimation()
+                        return true
+                    }
                 }
                 MotionEvent.ACTION_MOVE -> {
                     val dy = y - lastY
@@ -72,6 +81,12 @@ class StickyNavVerticalLayout2(context: Context, attrs: AttributeSet?, defAttrSt
                     }
                     if (isDrag) {
                         scrollBy(0, -dy.toInt())    // 反向取反
+                    }
+                    // 如果滑到顶了，将事件转换成点击事情，发送
+                    if (scrollY == topHeight) {
+                        event.action = MotionEvent.ACTION_DOWN
+                        dispatchTouchEvent(event)
+                        isInControl = false
                     }
                     lastY = y.toInt()
                 }
@@ -89,28 +104,84 @@ class StickyNavVerticalLayout2(context: Context, attrs: AttributeSet?, defAttrSt
 
                 MotionEvent.ACTION_CANCEL -> {
                     isDrag = false
+                    if(!scroller.isFinished) {
+                        scroller.abortAnimation()
+                    }
                     releaseVelocity()
                 }
             }
         }
-        return true
-        //return super.onTouchEvent(event)
+
+        return super.onTouchEvent(event)
     }
 
-    override fun onInterceptTouchEvent(ev: MotionEvent?): Boolean {
-        return true
-        //return super.onInterceptTouchEvent(ev)
+    override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
+        when (ev.action) {
+            MotionEvent.ACTION_DOWN -> lastY = ev.y.toInt()
+            MotionEvent.ACTION_MOVE -> {    // 进行判断，是否重发事件
+                val dy = ev.y - lastY
+                Log.e("TAG", "canScrollVertically: ${!ViewCompat.canScrollVertically(scrollView, -1)}")
+                // 头不可见，scrollView 到上边界 && 继续下拉，重发事件
+                if (topHide && !ViewCompat.canScrollVertically(scrollView, -1) && dy > 0 && !isInControl) {
+                    isInControl = true
+                    ev.action = MotionEvent.ACTION_CANCEL
+                    val ev2 = MotionEvent.obtain(ev)
+                    dispatchTouchEvent(ev)
+                    ev2.action = MotionEvent.ACTION_DOWN
+                    return dispatchTouchEvent(ev2)
+                }
+            }
+        }
+
+        return super.dispatchTouchEvent(ev)
+    }
+
+    /**
+     * 拦截判断
+     */
+    override fun onInterceptTouchEvent(ev: MotionEvent): Boolean {
+        val y = ev.y
+        when (ev.action) {
+            MotionEvent.ACTION_DOWN -> lastY = y.toInt()
+            MotionEvent.ACTION_MOVE -> {        // 重点
+                // 惯性未结束，拦截事件
+                if(!scroller.isFinished) {
+                    return true
+                }
+
+                val dy = y - lastY
+                if (Math.abs(dy) > touchSlop) {
+                    // topView 可见 || (topView不可见 && scrollView不能再下拉 && 继续下拉)
+                    if (!topHide || (topHide && !ViewCompat.canScrollVertically(scrollView, -1) && dy > 0)) {
+                        lastY = y.toInt()
+                        isDrag = true
+                        initVelocityTracker()
+                        velocityTracker?.let {
+                            it.addMovement(ev)
+                        }
+                        return true
+                    }
+                }
+            }
+            MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
+                isDrag = false
+                releaseVelocity()
+            }
+        }
+
+        return super.onInterceptTouchEvent(ev)
     }
 
     /**
      * 边界处理
      */
-//    override fun scrollTo(x: Int, y: Int) {
-//        var tmpY = y
-//        if (y < 0) tmpY = 0
-//        if (y > topHeight) tmpY = topHeight
-//        super.scrollTo(x, tmpY)
-//    }
+    override fun scrollTo(x: Int, y: Int) {
+        var tmpY = y
+        if (y < 0) tmpY = 0
+        if (y > topHeight) tmpY = topHeight
+        super.scrollTo(x, tmpY)
+        topHide = scrollY == topHeight
+    }
 
     override fun computeScroll() {
         if (scroller.computeScrollOffset()) {
