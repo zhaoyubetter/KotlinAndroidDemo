@@ -84,6 +84,7 @@ class StickyNavVerticalLayout2(context: Context, attrs: AttributeSet?, defAttrSt
                     }
                     // 如果滑到顶了，将事件转换成点击事情，发送
                     if (scrollY == topHeight) {
+                        Log.e("better", "topHide: ${topHide}")
                         event.action = MotionEvent.ACTION_DOWN
                         dispatchTouchEvent(event)
                         isInControl = false
