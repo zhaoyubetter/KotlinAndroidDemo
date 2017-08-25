@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="test.com.widget.ui.NestdScrollingTestActivity">
+
+    <test.com.widget.nested.view.NestedParentView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="#fcccff"
+        android:layout_alignParentBottom="true">
+
+        <test.com.widget.nested.view.NestedChildView
+            android:layout_width="100dp"
+            android:background="@color/colorPrimary"
+            android:layout_height="100dp">
+
+        </test.com.widget.nested.view.NestedChildView>
+
+    </test.com.widget.nested.view.NestedParentView>
+
+</RelativeLayout>

@@ -92,6 +92,20 @@ class FuncTemplate private constructor(ctx: Context) {
                     desc = ctx.resources.getString(R.string.widget_nestted_horiz)
                     clazz = NestedHorizonalActivity::class.java
                 }
+
+                item {
+                    pid = 2
+                    title = ctx.resources.getString(R.string.widget_nestted_nested_test)
+                    desc = ctx.resources.getString(R.string.widget_nestted_nested_test)
+                    clazz = NestdScrollingTestActivity::class.java
+                }
+
+                item {
+                    pid = 2
+                    title = ctx.resources.getString(R.string.widget_nestted_nested_vertical)
+                    desc = ctx.resources.getString(R.string.widget_nestted_nested_vertical)
+                    clazz = NestedScrollVerticalActivity::class.java
+                }
             }
         }
     }

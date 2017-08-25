@@ -1,5 +1,6 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="test.com.widget">
+<?xml version="1.0" encoding="utf-8"?>
+<manifest package="test.com.widget"
+          xmlns:android="http://schemas.android.com/apk/res/android">
 
     <application
         android:allowBackup="true"
@@ -8,20 +9,20 @@
         android:theme="@style/AppTheme">
         <activity android:name=".MainKotlinActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-
-        <activity android:name=".ui.PrivacyLockViewDialogUseActivity" />
-        <activity android:name=".ui.PrivacyLockViewNormalUseActivity" />
-        <activity android:name=".ui.PaletteImageViewActivity" />
-        <activity android:name=".ui.Nested_zhy_Activity" />
-        <activity android:name=".ui.NestedVerticalActivity" />
-        <activity android:name=".ui.NestedHorizonalActivity" />
-
-
+        <activity android:name=".ui.PrivacyLockViewDialogUseActivity"/>
+        <activity android:name=".ui.PrivacyLockViewNormalUseActivity"/>
+        <activity android:name=".ui.PaletteImageViewActivity"/>
+        <activity android:name=".ui.Nested_zhy_Activity"/>
+        <activity android:name=".ui.NestedVerticalActivity"/>
+        <activity android:name=".ui.NestedHorizonalActivity"/>
+        <activity android:name=".ui.NestedScrollVerticalActivity"/>
+        <activity android:name=".ui.NestdScrollingTestActivity">
+        </activity>
     </application>
-
 
 </manifest>
