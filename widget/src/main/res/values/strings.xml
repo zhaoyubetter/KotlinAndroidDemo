@@ -37,6 +37,7 @@
     <string name="widget_nestted_horiz">水平嵌套滑动</string>
     <string name="widget_nestted_nested_test">嵌套滑动测试（nested）</string>
     <string name="widget_nestted_nested_vertical">垂直嵌套滑动（nested）</string>
+    <string name="widget_nestted_product_detail_vertical">商品详情页（nested）</string>
 
 
 </resources>
