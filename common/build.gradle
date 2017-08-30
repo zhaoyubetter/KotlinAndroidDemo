@@ -47,3 +47,85 @@ dependencies {
 repositories {
     mavenCentral()
 }
+
+// ==================================================
+// gradle
+// =====================================================
+// 版本
+class ProjectVersion {
+    int major
+    int minor
+    int min
+
+    boolean release
+
+    ProjectVersion(int major, int minor, int min) {
+        this.major = major
+        this.minor = minor
+        this.min = min
+        this.release = false
+    }
+
+    ProjectVersion(int major, int minor, int min, boolean release) {
+        this.major = major
+        this.minor = minor
+        this.min = min
+        this.release = release
+    }
+
+
+    @Override
+    public String toString() {
+        return "$major.$minor.$min${release ? '' : '-SNAPSHOT'}"
+    }
+}
+
+// === 读取配置文件
+
+ext.versionFile = file('version.properties')
+
+ProjectVersion readVersion() {
+    println(">>>>> reading the version file")
+    if (!versionFile.exists()) {
+        throw new RuntimeException(">>> Required version file does not exist: ${versionFile.canonicalPath}")
+    }
+
+    Properties prop = new Properties()
+    versionFile.withInputStream { stream ->
+        prop.load(stream)
+    }
+    new ProjectVersion(prop.major.toInteger(), prop.minor.toInteger(), prop.min.toInteger(), prop.release.toBoolean())
+}
+
+// loadVersion任务，没有 << or >> 运算符，Gradle称之为 task配置
+task loadVersion(group: 'versioning') {
+    project.version = readVersion()
+}
+
+task printVersion(group: 'versioning', description: 'Print project version') << {
+    println(" >>>>>> the verson is ${version}")     // 访问project的属性version
+}
+
+/* 产品发布版本
+task makeReleaseVersion(group: 'versioning', description: 'Makes project a reelase version.') << {
+    version.release = true
+    // ant task 的propertyfile 提供便利的方式修改属性文件
+    ant.propertyfile(file: versionFile) {
+        entry(key: 'release', type: 'string', operation: '=', value: 'true')
+    }
+}*/
+
+// 加入 outputs与inputs
+task makeReleaseVersion(group: 'versioning', description: 'Makes project a reelase version.') {
+    // 在配置阶段声明 inputs/outputs
+    inputs.property('release', version.release)   // 声明版本的release属性作为输入
+    outputs.file versionFile                      // 由于版本文件被修改，所以他被声明最为输出文件属性
+
+    doLast {    // 闭包为动作代码
+        version.release = true
+        ant.propertyfile(file: versionFile) {
+            entry(key: 'release', type: 'string', operation: '=', value: 'true')
+        }
+        println(">>>>>> makeReleaseVersion")
+    }
+}
