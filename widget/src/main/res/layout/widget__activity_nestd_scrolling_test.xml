@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,16 +8,23 @@
     <test.com.widget.nested.view.NestedParentView
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:background="#fcccff"
-        android:layout_alignParentBottom="true">
+        android:layout_alignParentBottom="true"
+        android:background="#fcccff">
 
         <test.com.widget.nested.view.NestedChildView
             android:layout_width="100dp"
-            android:background="@color/colorPrimary"
-            android:layout_height="100dp">
+            android:layout_height="100dp"
+            android:background="@color/colorPrimary">
 
         </test.com.widget.nested.view.NestedChildView>
 
     </test.com.widget.nested.view.NestedParentView>
+
+    <Button
+        android:id="@+id/btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="测试Button" />
 
 </RelativeLayout>

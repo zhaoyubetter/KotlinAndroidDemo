@@ -47,3 +47,169 @@ dependencies {
 repositories {
     mavenCentral()
 }
+
+// ==================================================
+// gradle
+// =====================================================
+// 版本
+class ProjectVersion {
+    int major
+    int minor
+    int min
+
+    boolean release
+
+    ProjectVersion(int major, int minor, int min) {
+        this.major = major
+        this.minor = minor
+        this.min = min
+        this.release = false
+    }
+
+    ProjectVersion(int major, int minor, int min, boolean release) {
+        this.major = major
+        this.minor = minor
+        this.min = min
+        this.release = release
+    }
+
+
+    @Override
+    public String toString() {
+        return "$major.$minor.$min${release ? '' : '-SNAPSHOT'}"
+    }
+}
+
+// === 读取配置文件
+
+ext.versionFile = file('version.properties')
+
+ProjectVersion readVersion() {
+    println(">>>>> reading the version file")
+    if (!versionFile.exists()) {
+        throw new RuntimeException(">>> Required version file does not exist: ${versionFile.canonicalPath}")
+    }
+
+    Properties prop = new Properties()
+    versionFile.withInputStream { stream ->
+        prop.load(stream)
+    }
+    new ProjectVersion(prop.major.toInteger(), prop.minor.toInteger(), prop.min.toInteger(), prop.release.toBoolean())
+}
+
+// loadVersion任务，没有 << or >> 运算符，Gradle称之为 task配置
+task loadVersion(group: 'versioning') {
+    project.version = readVersion()
+}
+
+task printVersion(group: 'versioning', description: 'Print project version') << {
+    println(" >>>>>> the verson is ${version}")     // 访问project的属性version
+}
+
+/* 产品发布版本
+task makeReleaseVersion(group: 'versioning', description: 'Makes project a reelase version.') << {
+    version.release = true
+    // ant task 的propertyfile 提供便利的方式修改属性文件
+    ant.propertyfile(file: versionFile) {
+        entry(key: 'release', type: 'string', operation: '=', value: 'true')
+    }
+}*/
+
+// 加入 outputs与inputs
+task makeReleaseVersion(group: 'versioning', description: 'Makes project a realase version.') {
+    // 在配置阶段声明 inputs/outputs
+    inputs.property('release', version.release)   // 声明版本的release属性作为输入
+    outputs.file versionFile                      // 由于版本文件被修改，所以他被声明最为输出文件属性
+
+    doLast {    // 闭包为动作代码
+        version.release = true
+        ant.propertyfile(file: versionFile) {
+            entry(key: 'release', type: 'string', operation: '=', value: 'true')
+        }
+        println(">>>>>> makeReleaseVersion")
+    }
+}
+
+// ===== 自定义Task=====
+/*
+class ReleaseVersionTask extends DefaultTask {
+
+    @Input
+    Boolean release      // 注解声明输入属性 release
+    @OutputFile
+    File destFile   // 定义输出文件
+
+    ReleaseVersionTask() {
+        group = 'versioning'
+        description = 'Makes project a realase version.'
+    }
+
+    @TaskAction
+    // 使用注解声明将被执行的方法
+    void start() {
+        project.version.release = true
+        ant.propertyfile(file: versionFile) {
+            entry(key: 'release', type: 'string', operation: '=', value: 'true')
+        }
+    }
+}
+
+// 增強型task暴露的属性
+task makeReleaseVersion2(type: ReleaseVersionTask) {
+    release = version.relase
+    destFile = versionFile
+}*/
+
+/*------------------------------- task 规则 -------------------------------
+// 主版本+1
+task incrementMajorVersion(group: 'versioning', description: 'Increments project major version.') << {
+    String currentVersion = version.toString()
+    ++version.major
+    String newVersion = version.toString()
+    logger.info "Incrementing major project version: $currentVersion -> $newVersion"
+
+    ant.propertyfile(file: versionFile) {
+        entry(key: 'major', type: 'int', operation: '+', value: 1)
+    }
+}
+
+// 次版本+1
+task incrementMinorVersion(group: 'versioning', description: 'Increments project major version.') << {
+    String currentVersion = version.toString()
+    ++version.minor
+    String newVersion = version.toString()
+    logger.info "Incrementing minor project version: $currentVersion -> $newVersion"
+
+    ant.propertyfile(file: versionFile) {
+        entry(key: 'minor', type: 'int', operation: '+', value: 1)
+    }
+}
+------------------------------- task 规则 -------------------------------*/
+
+// 使用 taskContainer 添加规则
+tasks.addRule("Pattern: increment<Classifier>Version - Increments the project version.") {
+    String taskName ->
+        if (taskName.startsWith('increment') && taskName.endsWith('Version')) {
+            task(taskName) << {  // 符合命名模式的task动态添加doLast方法
+                String classifier = (taskName - 'increment' - 'Version').toLowerCase() // 提取
+                String currentVersion = version.toString()
+
+                switch (classifier) {
+                    case 'major': ++version.major
+                        break
+                    case 'minor': ++version.minor
+                        break
+                    default: throw new GradleException("Invalid version type '$classifier', Allowed " +
+                            " types: ['Major','Minor']")
+                }
+
+                String newVersion = version.toString()
+                logger.info "Incrementing $classifier project version: $currentVersion -> $newVersion"
+                ant.propertyfile(file: versionFile) {
+                    entry(key: classifier, type: 'int', operation: '+', value: 1)
+                }
+            }
+        }
+}
+
+
