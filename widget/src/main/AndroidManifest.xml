@@ -13,6 +13,8 @@
         <activity android:name=".ui.Nested_zhy_Activity"/>
         <activity android:name=".ui.NestedVerticalActivity"/>
         <activity android:name=".ui.NestedHorizonalActivity"/>
+        <activity android:name=".ui.linear.LinearLayoutDemoActivity"/>
+
     </application>
 
 </manifest>

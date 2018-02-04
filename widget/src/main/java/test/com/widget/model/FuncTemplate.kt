@@ -4,6 +4,8 @@ import android.app.Activity
 import android.content.Context
 import test.com.widget.R
 import test.com.widget.ui.*
+import test.com.widget.ui.linear.LinearLayoutDemoActivity
+import test.com.widget.ui.linear.MyLinearLayoutDemoActivity
 
 /**
  * Created by zhaoyu1 on 2017/7/4.
@@ -105,6 +107,34 @@ class FuncTemplate private constructor(ctx: Context) {
                     title = ctx.resources.getString(R.string.widget_nestted_nested_vertical)
                     desc = ctx.resources.getString(R.string.widget_nestted_nested_vertical)
                     clazz = NestedScrollVerticalActivity::class.java
+                }
+
+                item {
+                    pid = 2
+                    title = ctx.resources.getString(R.string.widget_nestted_product_detail_vertical)
+                    desc = ctx.resources.getString(R.string.widget_nestted_product_detail_vertical)
+                    clazz = SlidingUpLayoutTestActivity::class.java
+                }
+            }
+
+            // linearylayout
+            item {
+                id = 3
+                title = "LinearLayout(系统与自定义)"
+                desc = ""
+
+                item {
+                    pid = 3
+                    title = "系统LinearLayout"
+                    desc = "LinearLayoutDemoActivity"
+                    clazz = LinearLayoutDemoActivity::class.java
+                }
+
+                item {
+                    pid = 3
+                    title = "自定义LinearyLayout"
+                    desc = "自定义LinearyLayout"
+                    clazz = MyLinearLayoutDemoActivity::class.java
                 }
             }
         }

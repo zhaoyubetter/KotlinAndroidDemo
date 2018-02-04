@@ -23,6 +23,11 @@
         <activity android:name=".ui.NestedScrollVerticalActivity"/>
         <activity android:name=".ui.NestdScrollingTestActivity">
         </activity>
+        <activity android:name=".ui.SlidingUpLayoutTestActivity">
+        </activity>
+        <activity android:name=".ui.linear.LinearLayoutDemoActivity"/>
+        <activity android:name=".ui.linear.MyLinearLayoutDemoActivity">
+        </activity>
     </application>
 
 </manifest>

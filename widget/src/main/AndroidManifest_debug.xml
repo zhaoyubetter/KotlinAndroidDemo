@@ -14,6 +14,7 @@
         <activity android:name=".ui.PaletteImageViewActivity"/>
         <activity android:name=".ui.NestedMainActivity"/>
         <activity android:name=".ui.NestedMain2Activity"/>
+        <activity android:name=".ui.linear.LinearLayoutDemoActivity"/>
 
     </application>
 

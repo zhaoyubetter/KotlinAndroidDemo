@@ -1,29 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="WidgetAttribute">
-        <attr name="privacyLockView" format="reference" />
-        <attr name="paletteImageView" format="reference" />
+        <attr name="privacyLockView" format="reference"/>
+        <attr name="paletteImageView" format="reference"/>
     </declare-styleable>
 
     <!-- 验证输入框 -->
     <declare-styleable name="PrivacyLockView">
-        <attr name="pv_itemPadding" format="dimension" />
-        <attr name="pv_itemCount" format="integer" />
-        <attr name="pv_isPrivacy" format="boolean" />      <!-- 是否加密 -->
-        <attr name="pv_privacyDrawable" format="reference" />
-        <attr name="pv_privacyDrawableWidth" format="dimension" />
-        <attr name="pv_privacyDrawableHeight" format="dimension" />
-        <attr name="pv_borderColor" format="color" />   <!-- 边框颜色 -->
-        <attr name="pv_borderStrokeWidth" format="dimension" />   <!-- 边框线宽 -->
+        <attr name="pv_itemPadding" format="dimension"/>
+        <attr name="pv_itemCount" format="integer"/>
+        <attr name="pv_isPrivacy" format="boolean"/>      <!-- 是否加密 -->
+        <attr name="pv_privacyDrawable" format="reference"/>
+        <attr name="pv_privacyDrawableWidth" format="dimension"/>
+        <attr name="pv_privacyDrawableHeight" format="dimension"/>
+        <attr name="pv_borderColor" format="color"/>   <!-- 边框颜色 -->
+        <attr name="pv_borderStrokeWidth" format="dimension"/>   <!-- 边框线宽 -->
     </declare-styleable>
 
     <!-- 带阴影背景的View -->
     <declare-styleable name="PaletteImageView">
-        <attr name="paletteRadius" format="dimension" />
-        <attr name="paletteSrc" format="reference" />
-        <attr name="palettePadding" format="dimension" />
-        <attr name="paletteOffsetX" format="dimension" />
-        <attr name="paletteOffsetY" format="dimension" />
-        <attr name="paletteShadowRadius" format="dimension" />
+        <attr name="paletteRadius" format="dimension"/>
+        <attr name="paletteSrc" format="reference"/>
+        <attr name="palettePadding" format="dimension"/>
+        <attr name="paletteOffsetX" format="dimension"/>
+        <attr name="paletteOffsetY" format="dimension"/>
+        <attr name="paletteShadowRadius" format="dimension"/>
+    </declare-styleable>
+
+    <!--mylinearlayout-->
+    <declare-styleable name="MyLinearLayout">
+
+        <attr name="orientation">
+            <enum name="horizontal" value="0"/>
+            <enum name="vertical" value="1"/>
+        </attr>
+
+        <attr name="gravity">
+            <flag name="left" value="3"/>
+            <flag name="top" value="48"/>
+            <flag name="right" value="5"/>
+            <flag name="bottom" value="80"/>
+            <flag name="center_vertical" value="16"/>
+            <flag name="fill_vertical" value="112"/>
+            <flag name="center_horizontal" value="1"/>
+            <flag name="fill_horizontal" value="7"/>
+            <flag name="center" value="17"/>
+        </attr>
+
+        <attr name="layout_gravity">
+            <flag name="left" value="3"/>
+            <flag name="top" value="48"/>
+            <flag name="right" value="5"/>
+            <flag name="bottom" value="80"/>
+            <flag name="center_vertical" value="16"/>
+            <flag name="fill_vertical" value="112"/>
+            <flag name="center_horizontal" value="1"/>
+            <flag name="fill_horizontal" value="7"/>
+            <flag name="center" value="17"/>
+        </attr>
     </declare-styleable>
 </resources>

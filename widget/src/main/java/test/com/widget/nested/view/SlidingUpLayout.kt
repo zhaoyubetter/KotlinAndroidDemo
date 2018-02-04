@@ -1,6 +1,7 @@
 package test.com.widget.nested.view
 
 import android.content.Context
+import android.graphics.Rect
 import android.support.v4.view.NestedScrollingParent
 import android.support.v4.view.ViewCompat
 import android.support.v4.widget.ScrollerCompat
@@ -38,6 +39,7 @@ class SlidingUpLayout(context: Context, attrs: AttributeSet?, defAttrStyle: Int)
     private var minScrollDistance = 100 // 最小滑动距离
 
     private var isNestedPreScroll = false //此标记标记nested内为拖动事件
+    private var isNestedFling = false//此标记标记nested本次流程内为惯性滑动事件
 
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
@@ -54,6 +56,57 @@ class SlidingUpLayout(context: Context, attrs: AttributeSet?, defAttrStyle: Int)
             it.layout(l, layoutTop, r, layoutTop + it.measuredHeight)
             layoutTop += it.measuredHeight
         }
+    }
+
+    override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
+        initVelocityTrackerIfNotExists()
+        velocityTracker?.addMovement(ev)
+
+        when (ev.action) {
+            MotionEvent.ACTION_UP -> {
+                velocityTracker?.let {
+                    it.computeCurrentVelocity(1000, maxFlingVelocity.toFloat())
+                    if (Math.abs(it.yVelocity) > minFlingVelocity) {
+                        val topLayout = getChildAt(0)
+                        val bottomLayout = getChildAt(childCount - 1)
+                        val scrollView = getCurrentScrollView(ev.y)
+
+                        if (DEBUG) {
+                            Log.e(TAG, "fling===>  scrollY:$scrollY yVelocity: ${it.yVelocity} scrollView: $scrollView")
+                        }
+
+                        if (scrollY > 0 && topLayout == scrollView) {                           // 向上滑动
+                            if (it.yVelocity > 0) {
+                                setLayoutShadow(Gravity.START)
+                            } else {
+                                setLayoutShadow(Gravity.END)
+                            }
+                        } else if (bottomLayout == scrollView && (scrollY < bottomLayout.top)) { // 向下滑动
+                            if (it.yVelocity > 0) {
+                                setLayoutShadow(Gravity.START)
+                            } else {
+                                setLayoutShadow(Gravity.END)
+                            }
+                        }
+                        isNestedFling = true
+                    }
+                }
+                releaseVelocity()
+            }
+
+            MotionEvent.ACTION_CANCEL -> releaseVelocity()
+        }
+
+        return super.dispatchTouchEvent(ev)
+    }
+
+    private fun getCurrentScrollView(y: Float): View {
+        val topLayout = getChildAt(0)
+        val bottomLayout = getChildAt(childCount - 1)
+        //通过当前操作位置判断当前哪个列表控件正在显示
+        val rect = Rect()
+        topLayout.getGlobalVisibleRect(rect)
+        return if (rect.contains(0, y.toInt())) topLayout else bottomLayout
     }
 
 
@@ -99,6 +152,10 @@ class SlidingUpLayout(context: Context, attrs: AttributeSet?, defAttrStyle: Int)
     // -------------------- 嵌套滑动 -----------------------
 
     override fun onStartNestedScroll(child: View, target: View, nestedScrollAxes: Int): Boolean {
+        if (!scroller.isFinished) {
+            scroller.abortAnimation()
+            invalidate()
+        }
         return 0 != (ViewCompat.SCROLL_AXIS_VERTICAL and nestedScrollAxes)   // 开启
     }
 
@@ -133,8 +190,11 @@ class SlidingUpLayout(context: Context, attrs: AttributeSet?, defAttrStyle: Int)
     }
 
     override fun onStopNestedScroll(target: View) {
-        if (DEBUG) Log.e(TAG, "onStopNestedScroll")
-        if (isNestedPreScroll) {
+        if (DEBUG) {
+            Log.e(TAG, "onStopNestedScroll")
+        }
+
+        if (isNestedPreScroll && !isNestedFling) {
             val topLayout = getChildAt(0)
             val bottomLayout = getChildAt(childCount - 1)
             if (null != topLayout.findViewById(target.id)) {
@@ -152,6 +212,7 @@ class SlidingUpLayout(context: Context, attrs: AttributeSet?, defAttrStyle: Int)
             }
         }
         isNestedPreScroll = false
+        isNestedFling = false
     }
 
     override fun onNestedScrollAccepted(child: View, target: View, nestedScrollAxes: Int) {}
@@ -165,6 +226,5 @@ class SlidingUpLayout(context: Context, attrs: AttributeSet?, defAttrStyle: Int)
     }
 
     override fun getNestedScrollAxes(): Int = ViewCompat.SCROLL_AXIS_VERTICAL
-
 
 }
