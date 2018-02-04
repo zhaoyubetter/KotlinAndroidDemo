@@ -19,7 +19,7 @@ import test.com.widget.R
  *
  * 有困惑的地方：
  * 1. measureChildWithMargins 与 measureChild 什么时候用；
- *
+ * 2. generateLayoutParams、generateDefaultLayoutParams 啥时候调用
  */
 class MyLinearLayout(context: Context, attrs: AttributeSet?, defAttrStyle: Int, defStyleRes: Int) : ViewGroup(context, attrs, defAttrStyle, defStyleRes) {
 
@@ -253,9 +253,11 @@ class MyLinearLayout(context: Context, attrs: AttributeSet?, defAttrStyle: Int, 
 
             // ==== 2. 确定子view的位置（左.右.水平居中）
             when (childGravity and Gravity.HORIZONTAL_GRAVITY_MASK) {
-                RIGHT ->  childLeft = width - paddingRight - it.measuredWidth - lp.rightMargin
-                CENTER_HORIZONTAL -> {childLeft = paddingLeft + (width - paddingLeft - paddingRight - it.measuredWidth) / 2
-                                                + lp.leftMargin - lp.rightMargin}
+                RIGHT -> childLeft = width - paddingRight - it.measuredWidth - lp.rightMargin
+                CENTER_HORIZONTAL -> {
+                    childLeft = paddingLeft + (width - paddingLeft - paddingRight - it.measuredWidth) / 2
+                    +lp.leftMargin - lp.rightMargin
+                }
                 else -> childLeft = paddingLeft + lp.leftMargin
             }
 
@@ -268,22 +270,37 @@ class MyLinearLayout(context: Context, attrs: AttributeSet?, defAttrStyle: Int, 
         }
     }
 
-    override fun generateLayoutParams(attrs: AttributeSet): ViewGroup.LayoutParams {
+    override fun generateLayoutParams(attrs: AttributeSet): LayoutParams {
         return LayoutParams(context, attrs)
     }
 
-    // ====== LayoutParams
-    class LayoutParams(context: Context, attrs: AttributeSet) : ViewGroup.MarginLayoutParams(context, attrs) {
+    override fun generateDefaultLayoutParams(): LayoutParams {
+        return LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+    }
 
-        // layout_gravity
+    override fun generateLayoutParams(lp: ViewGroup.LayoutParams): LayoutParams {
+        if (lp is LayoutParams) {
+            return LayoutParams(lp)
+        } else if (lp is ViewGroup.MarginLayoutParams) {
+            return LayoutParams(lp)
+        }
+        return LayoutParams(lp)
+    }
+
+    // ====== LayoutParams
+    class LayoutParams : ViewGroup.MarginLayoutParams {
+
         var gravity: Int = -1
 
-        init {
+        constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
             context.obtainStyledAttributes(attrs, R.styleable.MyLinearLayout).apply {
                 gravity = (getInt(R.styleable.MyLinearLayout_layout_gravity, -1))
                 recycle()
             }
         }
-    }
+        constructor(width: Int, height: Int) : super(width, height)
+        constructor(lp:ViewGroup.LayoutParams) : super(lp)
 
+
+    }
 }

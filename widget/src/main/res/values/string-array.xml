@@ -6,4 +6,20 @@
         <item>@string/app_name</item>
         <item>@string/widget_title</item>
     </string-array>
+    <string-array name="orientation">
+        <item>水平</item>
+        <item>垂直</item>
+    </string-array>
+
+    <string-array name="horizontal_item">
+        <item>Left</item>
+        <item>Right</item>
+        <item>Center_horizontal</item>
+    </string-array>
+
+    <string-array name="vertical_item">
+        <item>Top</item>
+        <item>Bottom</item>
+        <item>Center_vertical</item>
+    </string-array>
 </resources>
