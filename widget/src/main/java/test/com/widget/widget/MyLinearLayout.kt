@@ -122,7 +122,8 @@ class MyLinearLayout(context: Context, attrs: AttributeSet?, defAttrStyle: Int, 
         val heightSize = MeasureSpec.getSize(heightMeasureSpec)
 
         (0 until childCount).map { getChildAt(it) }.filter { it != null && it.visibility != View.GONE }.forEach { it ->
-            measureChildWithMargins(it, widthMeasureSpec, totalLength, heightMeasureSpec, 0)
+            //measureChildWithMargins(it, widthMeasureSpec, totalLength, heightMeasureSpec, 0)
+            measureChild(it, widthMeasureSpec, heightMeasureSpec)
             val lp = it.layoutParams as LayoutParams
             totalLength += it.measuredHeight + lp.topMargin + lp.bottomMargin
             maxWidth = Math.max(maxWidth, it.measuredWidth + lp.leftMargin + lp.rightMargin)
@@ -196,6 +197,9 @@ class MyLinearLayout(context: Context, attrs: AttributeSet?, defAttrStyle: Int, 
             CENTER_HORIZONTAL -> childLeft = (width - totalLength) / 2 + paddingLeft
             else -> childLeft = paddingLeft
         }
+        if(childLeft < 0) {
+            childLeft = paddingLeft
+        }
 
         (0 until childCount).map { getChildAt(it) }.filter { it != null && it.visibility != View.GONE }.forEach { it ->
             var lp: LayoutParams = it.layoutParams as LayoutParams
@@ -205,14 +209,14 @@ class MyLinearLayout(context: Context, attrs: AttributeSet?, defAttrStyle: Int, 
             var childGravity = if (lp.gravity < 0) minorGravity else lp.gravity
             // ==== 2. 确定子view的位置（上.下.垂直居中）
             when (childGravity and Gravity.VERTICAL_GRAVITY_MASK) {
-                BOTTOM -> childTop = b - t + paddingBottom + lp.bottomMargin
+                BOTTOM -> childTop = b - t - it.measuredHeight - paddingBottom - lp.bottomMargin
                 CENTER_VERTICAL -> childTop = paddingTop +
-                        (b - t - paddingLeft - paddingBottom - it.measuredHeight) / 2 + lp.topMargin - lp.bottomMargin
+                        (b - t - paddingTop - paddingBottom - it.measuredHeight) / 2 + lp.topMargin - lp.bottomMargin
                 else -> childTop = paddingTop + lp.topMargin
             }
 
             rect.left = childLeft + lp.leftMargin
-            rect.top = childTop + lp.topMargin
+            rect.top = childTop
             rect.right = rect.left + it.measuredWidth
             rect.bottom = rect.top + it.measuredHeight
 
@@ -243,6 +247,10 @@ class MyLinearLayout(context: Context, attrs: AttributeSet?, defAttrStyle: Int, 
             CENTER_VERTICAL -> childTop = (b - t - totalLength) / 2 + paddingTop
             else -> childTop = paddingTop
         }
+        // 避免不能显示第一个item
+        if(childTop < 0) {
+            childTop = paddingTop
+        }
 
         (0 until childCount).map { getChildAt(it) }.filter { it != null && it.visibility != View.GONE }.forEach { it ->
             val lp = it.layoutParams as LayoutParams
@@ -253,10 +261,12 @@ class MyLinearLayout(context: Context, attrs: AttributeSet?, defAttrStyle: Int, 
 
             // ==== 2. 确定子view的位置（左.右.水平居中）
             when (childGravity and Gravity.HORIZONTAL_GRAVITY_MASK) {
-                RIGHT -> childLeft = width - paddingRight - it.measuredWidth - lp.rightMargin
+                RIGHT -> {
+                    childLeft = width - paddingRight - it.measuredWidth - lp.rightMargin
+                }
                 CENTER_HORIZONTAL -> {
                     childLeft = paddingLeft + (width - paddingLeft - paddingRight - it.measuredWidth) / 2
-                    +lp.leftMargin - lp.rightMargin
+                    + lp.leftMargin - lp.rightMargin
                 }
                 else -> childLeft = paddingLeft + lp.leftMargin
             }
@@ -266,7 +276,7 @@ class MyLinearLayout(context: Context, attrs: AttributeSet?, defAttrStyle: Int, 
             rect.right = rect.left + it.measuredWidth
             rect.bottom = rect.top + it.measuredHeight
             it.layout(rect.left, rect.top, rect.right, rect.bottom)
-            childTop += lp.topMargin + it.measuredHeight + lp.bottomMargin
+            childTop += it.measuredHeight + lp.bottomMargin
         }
     }
 
