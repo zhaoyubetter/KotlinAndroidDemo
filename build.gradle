@@ -8,7 +8,7 @@ buildscript {
     ext.android_support_version = '25.3.1'
 
     // 模块是否单独编译
-    ext.isBuildModule = true
+    ext.isBuildModule = false
 
     repositories {
         jcenter()
@@ -20,7 +20,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.3'
+        classpath 'com.android.tools.build:gradle:3.0.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "org.jetbrains.kotlin:kotlin-android-extensions:$kotlin_version"
 
@@ -37,8 +37,23 @@ allprojects {
     repositories {
         jcenter()
     }
+
+    // 为根项目和所有子项目设置group和version属性
+    group = 'com.better'
+    version = '1.0.0'
 }
+
+subprojects {   // 设置插件应用于子项目
+    // apply plugin :
+}
+
 
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+//project(':common') {
+//    this.group = "comom.better"
+//    version = '1.0.0'
+//    apply plugin: 'com.android.library'
+//}

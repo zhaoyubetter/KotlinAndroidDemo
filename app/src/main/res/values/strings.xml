@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Kotlin 安卓示例</string>
+    <string name="app_name" translatable="false">Kotlin 安卓示例</string>
     <string name="app_menu_home">首页</string>
     <string name="app_menu_widget">控件</string>
     <string name="app_menu_me">我</string>

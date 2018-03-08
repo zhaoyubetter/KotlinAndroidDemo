@@ -1,11 +1,10 @@
 package test.com.widget.ui
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.widget.SeekBar
 import kotlinx.android.synthetic.main.widget_activity_privacy_lock_view_use1.*
 import org.jetbrains.anko.toast
-
 import test.com.widget.R
 
 class PrivacyLockViewNormalUseActivity : AppCompatActivity() {

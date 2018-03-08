@@ -1,8 +1,8 @@
 package test.com.widget.ui
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
+import android.support.v7.app.AppCompatActivity
 import kotlinx.android.synthetic.main.toolbar.*
 import org.jetbrains.anko.find
 import org.jetbrains.anko.toast
