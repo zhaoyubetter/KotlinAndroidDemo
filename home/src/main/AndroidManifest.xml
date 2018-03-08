@@ -1,10 +1,12 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest package="com.better.module.home"
 
-    package="com.better.module.home">
+          xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <application android:allowBackup="true" android:label="@string/app_name"
+    <application
+        android:allowBackup="true"
+        android:label="@string/app_name"
         android:supportsRtl="true">
-
+        <activity android:name=".anim.TweenAnimActivity"/>
     </application>
 
 </manifest>

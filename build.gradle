@@ -5,7 +5,9 @@ buildscript {
 
     ext.kotlin_version = '1.1.2-4'
     ext.anko_version = '0.10.0'
-    ext.android_support_version = '25.3.1'
+    ext.android_support_version = '26.0.2'
+    ext.build_tool_version = '26.0.2'
+    ext.compile_sdk_version = 26
 
     // 模块是否单独编译
     ext.isBuildModule = false
@@ -17,6 +19,7 @@ buildscript {
             url "http://dl.bintray.com/alexsmille/maven"
         }
         mavenCentral()
+        google()
     }
 
     dependencies {
@@ -36,6 +39,7 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
+        google()
     }
 
     // 为根项目和所有子项目设置group和version属性

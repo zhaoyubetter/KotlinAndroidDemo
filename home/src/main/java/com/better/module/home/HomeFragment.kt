@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import kotlinx.android.synthetic.main.home_layout_fragment_home.*
 import lib.basenet.okhttp.OkHttpRequest
 import lib.basenet.request.AbsRequestCallBack
@@ -43,6 +42,10 @@ class HomeFragment : Fragment() {
                     toast(e.toString())
                 }
             }).build().request()
+        }
+
+        animal.onClick {
+
         }
     }
 
